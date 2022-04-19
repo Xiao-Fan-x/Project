@@ -1,15 +1,17 @@
-package com.example.demo.mapper;
+package com.example.demo.dao.click;
 
-import com.example.demo.entity.City;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Component
-public interface CityMapper {
+public interface ExamMsg {
 
-    List<City> get();
+    List<Map<String, Object>> get();
+
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.master.StudentMapper">
+    <insert id="register">
+        insert into student
+        (userId, userName, gender, password,
+        phone, registTime, department, major, className, grade)
+        value (
+        #{userId},#{userName},#{gender},#{password},
+        #{phone},#{registTime},#{department},
+        #{major},#{className},#{grade}
+        )
+    </insert>
+
+    <select id="getByUserId" resultType="java.lang.String">
+        select userId from student
+        limit 1
+    </select>
+</mapper>

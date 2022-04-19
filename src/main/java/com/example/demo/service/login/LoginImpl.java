@@ -1,0 +1,38 @@
+package com.example.demo.service.login;
+
+
+import com.example.demo.dao.master.StudentMapper;
+import com.example.demo.entity.roles.Student;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
+@Service
+public class LoginImpl implements Login {
+
+    public static final Logger logger = Logger.getLogger(LoginImpl.class);
+
+    @Autowired
+    private StudentMapper studentMapper;
+
+    /**
+     * 单个学生注册
+     * @param student
+     * @return
+     */
+    @Override
+    public Object register(Student student) {
+        logger.info(student);
+        String userId = student.getUserId();
+//        studentMapper.getByUserId(userId);
+        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        student.setRegistTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        student.setRegistTime(LocalDateTime.now());
+        Boolean regist = studentMapper.register(student);
+        return regist;
+    }
+}
