@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class MD5Utils {
 
-    public String encrypt(String base) throws IOException {
+    public static String encrypt(String base) throws IOException {
 
         StringBuilder str = new StringBuilder();
 

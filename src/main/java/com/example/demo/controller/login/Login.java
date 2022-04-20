@@ -4,6 +4,7 @@ package com.example.demo.controller.login;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.click.ExamMsg;
 import com.example.demo.entity.roles.Student;
+import com.example.demo.entity.roles.User;
 import com.example.demo.service.login.LoginImpl;
 import com.example.demo.util.RedisUtil;
 import com.example.demo.util.Result;
@@ -32,11 +33,15 @@ public class Login {
     private LoginImpl login;
 
 
-    @RequestMapping(value = "/home")
-    public Object login(@RequestBody JSONObject object) {
-        logger.info(object.toString());
-        logger.info("=================");
-        return null;
+    @RequestMapping(value = "/login")
+    public Object login(@RequestBody User user) {
+        logger.info(user.toString());
+        Object obj = login.login(user);
+        if (obj!= null){
+            return Result.ResultSuccess(obj);
+        }else {
+            return Result.ResultErr(obj,"登陆失败");
+        }
 
     }
 

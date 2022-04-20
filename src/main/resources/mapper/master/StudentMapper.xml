@@ -7,16 +7,24 @@
     <insert id="register">
         insert into student
         (userId, userName, gender, password,
-        phone, registTime, department, major, className, grade)
-        value (
-        #{userId},#{userName},#{gender},#{password},
-        #{phone},#{registTime},#{department},
-        #{major},#{className},#{grade}
-        )
+         phone, registTime, department, major, className, grade)
+            value ( #{userId},#{userName},#{gender},#{password},
+            #{phone},#{registTime},#{department},
+            #{major},#{className},#{grade}
+            )
     </insert>
 
-    <select id="getByUserId" resultType="java.lang.String">
-        select userId from student
-        limit 1
+
+    <select id="getByUserId" resultType="com.example.demo.entity.roles.User">
+        select * from
+        <choose>
+            <when test="role == 'student'">
+                student
+            </when>
+            <otherwise>
+                teacher
+            </otherwise>
+        </choose>
+        where userId = #{userId}
     </select>
 </mapper>
