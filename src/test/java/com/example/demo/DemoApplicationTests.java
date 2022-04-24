@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -51,5 +52,19 @@ class DemoApplicationTests {
     void Password() throws IOException {
         String str = "123456";
         System.out.println(MD5Utils.encrypt(str));
+
+        String s1 = "ab";
+        String s2 = new String("abc");
+        String s3 = s1 + "c";
+        System.out.println(s3 == s2);// false
+        System.out.println(s3.equals(s2));// true
+
+//        PrintWriter printWriter = new PrintWriter(System.out);
+//        printWriter.println("111");
+
+
+
+
     }
+
 }

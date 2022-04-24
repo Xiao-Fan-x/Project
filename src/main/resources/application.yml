@@ -43,6 +43,7 @@ spring:
       logAbandoned: true
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
+
   redis:
     database: 1  # Redis数据库索引（默认为0） # Redis数据库索引（默认为0）
     host: 127.0.0.1   # Redis服务器地址
@@ -110,6 +111,36 @@ mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #  mapper-locations: classpath:/resources/mapper/*
-logging:
 
+kafka:
+  producer:
+    #    bootstrap-servers: 10.124.143.138:9092
+    bootstrap-servers: 10.161.55.1:9092,10.161.55.2:9092,10.161.55.3:9092,10.161.55.4:9092,10.161.55.5:9092,10.161.55.6:9092,10.161.11.232:9092,10.161.11.233:9092,10.161.11.234:9092,10.161.11.15:9092,10.161.11.25:9092,10.161.11.26:9092
+    batch-size: 16785                                   #一次最多发送数据量
+    retries: 0                                          #发送失败后的重复发送次数
+    backoff:
+      ms: 100
+    buffer-memory: 33554432                             #32M批处理缓冲区
+    linger: 1
+  consumer:
+    #    bootstrap-servers: 10.124.143.138:9092
+    bootstrap-servers: 10.161.55.1:9092,10.161.55.2:9092,10.161.55.3:9092,10.161.55.4:9092,10.161.55.5:9092,10.161.55.6:9092,10.161.11.232:9092,10.161.11.233:9092,10.161.11.234:9092,10.161.11.15:9092,10.161.11.25:9092,10.161.11.26:9092
+    auto-offset-reset: latest                           #最早未被消费的offset earliest
+    max-poll-records: 100                              #批量消费一次最大拉取的数据量
+    enable-auto-commit: false                           #是否开启自动提交
+    auto-commit-interval: 28000                         #自动提交的间隔时间
+    session-timeout: 29000                              #连接超时时间
+    max-partition-fetch-bytes: 10485760
+    fetch-min-bytes: 1048576
+    fetch-max-wait-ms: 1000
+  listener:
+    batch-listener: true                                #是否开启批量消费，true表示批量消费
+    concurrencys: 3,6                                  #设置消费的线程数
+    poll-timeout: 5000                                  #如果消息队列中没有消息，等待timeout毫秒后，调用poll()方法。如果队列中有消息，立即消费消息，每次消费的消息的多少可以通过max.poll.records配置。
+
+alert:
+  topic: js_alerterror_data
+  jsAlertGroup: js_alert_data_test
+  jsAlertStartup: false
+  result: js_alerterror_data_new
 

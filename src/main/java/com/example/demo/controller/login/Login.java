@@ -45,6 +45,7 @@ public class Login {
 
     }
 
+
     @RequestMapping(value = "/register")
     public Object register(@RequestBody Student student) {
 
