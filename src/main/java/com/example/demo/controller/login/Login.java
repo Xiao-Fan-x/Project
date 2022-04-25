@@ -1,26 +1,27 @@
 package com.example.demo.controller.login;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.click.ExamMsg;
 import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.User;
 import com.example.demo.service.login.LoginImpl;
 import com.example.demo.util.RedisUtil;
 import com.example.demo.util.Result;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/login")
 public class Login {
 
-    private static final Logger logger = Logger.getLogger(Login.class);
+//    private static final Logger logger = LoggerFactory.getLogger(Login.class);
 
 
     @Autowired
@@ -35,7 +36,7 @@ public class Login {
 
     @RequestMapping(value = "/login")
     public Object login(@RequestBody User user) {
-        logger.info(user.toString());
+        log.info(user.toString());
         Object obj = login.login(user);
         if (obj!= null){
             return Result.ResultSuccess(obj);
@@ -63,9 +64,16 @@ public class Login {
     void clickhouseTest() {
         System.out.println("clickhouse test");
         List<Map<String, Object>> a = examMsg.get();
-        System.out.println(a);
+        log.info(a.toString());
     }
+//    @RequestMapping(value = "/logTest")
+    public void logTest() {
+        List<Map<String, Object>> a = examMsg.get();
 
+        for (int i = 0; i <= 2000; i++) {
+            log.info(a.toString());
+        }
+    }
     @RequestMapping(value = "/home3")
     void redisTest() {
         System.out.println("redis test");

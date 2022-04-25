@@ -5,7 +5,7 @@ import com.example.demo.dao.master.StudentMapper;
 import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.User;
 import com.example.demo.util.MD5Utils;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +15,21 @@ import java.time.format.DateTimeFormatter;
 
 
 @Service
+@Slf4j
 public class LoginImpl implements Login {
-
-    public static final Logger logger = Logger.getLogger(LoginImpl.class);
 
     @Autowired
     private StudentMapper studentMapper;
 
     /**
      * 单个学生注册
+     *
      * @param student
      * @return
      */
     @Override
     public Object register(Student student) {
-        logger.info(student);
+        log.info(student.toString());
         String userId = student.getUserId();
 //        studentMapper.getByUserId(userId);
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -40,7 +40,7 @@ public class LoginImpl implements Login {
     }
 
 
-    public Object login(User user){
+    public Object login(User user) {
 
         String password = user.getPassword();
 
@@ -51,8 +51,8 @@ public class LoginImpl implements Login {
         }
 
         User userResult = studentMapper.getByUserId(user);
-        logger.info(userResult);
-        if (password.equals(userResult.getPassword())){
+        log.info(userResult.toString());
+        if (password.equals(userResult.getPassword())) {
             userResult.setPassword("");
             return userResult;
         }
