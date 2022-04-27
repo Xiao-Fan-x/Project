@@ -33,9 +33,9 @@ class DemoApplicationTests {
 
     @Test
     void clickhouseTest() {
-        System.out.println("clickhouse test");
-        List<Map<String, Object>> a = examMsg.get();
-        System.out.println(a);
+//        System.out.println("clickhouse test");
+//        List<Map<String, Object>> a = examMsg.get();
+//        System.out.println(a);
         List<User> user = studentMapper.getById("6018203252");
         System.out.println(user);
     }
