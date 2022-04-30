@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -18,8 +18,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.6.4</spring-boot.version>
-<!--        <druid-version>1.2.6</druid-version>-->
-<!--        <dynamic-version>3.5</dynamic-version>-->
+        <!--        <druid-version>1.2.6</druid-version>-->
+        <!--        <dynamic-version>3.5</dynamic-version>-->
     </properties>
 
     <dependencies>
@@ -125,11 +125,11 @@
             <version>0.7.0</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.auth0</groupId>-->
-<!--            <artifactId>java-jwt</artifactId>-->
-<!--            <version>3.19.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.auth0</groupId>-->
+        <!--            <artifactId>java-jwt</artifactId>-->
+        <!--            <version>3.19.0</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -187,11 +187,11 @@
         <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/ru.yandex.clickhouse/clickhouse-jdbc -->
-<!--        <dependency>-->
-<!--            <groupId>ru.yandex.clickhouse</groupId>-->
-<!--            <artifactId>clickhouse-jdbc</artifactId>-->
-<!--            <version>0.3.2</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>ru.yandex.clickhouse</groupId>-->
+        <!--            <artifactId>clickhouse-jdbc</artifactId>-->
+        <!--            <version>0.3.2</version>-->
+        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.clickhouse/clickhouse-jdbc -->
         <dependency>
@@ -226,11 +226,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.kafka</groupId>-->
-<!--            <artifactId>kafka_2.13</artifactId>-->
-<!--            <version>3.1.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.kafka</groupId>-->
+        <!--            <artifactId>kafka_2.13</artifactId>-->
+        <!--            <version>3.1.0</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.kafka</groupId>
