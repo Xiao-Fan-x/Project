@@ -13,7 +13,8 @@ import java.util.List;
 public interface StudentMapper {
 
 
-    User getByUserId(User user);
+    Student getByUserId(User user);
+
     List<User> getById(@Param("id") String id);
 
     Boolean register(Student student);

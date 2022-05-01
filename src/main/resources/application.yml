@@ -7,7 +7,7 @@ spring:
       name: mysql
       type: com.alibaba.druid.pool.DruidDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/Project?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+      url: jdbc:mysql://127.0.0.1:3307/Project?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
       username: root
       password: 123456
       initialSize: 10
@@ -112,4 +112,5 @@ logging:
     rolling policy:
       file-name-pattern: server.%d.%i.log
       max-file-size: 10MB
+
 

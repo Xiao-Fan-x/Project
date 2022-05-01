@@ -15,16 +15,9 @@
     </insert>
 
 
-    <select id="getByUserId" resultType="com.example.demo.entity.roles.User">
+    <select id="getByUserId" resultType="com.example.demo.entity.roles.Student">
         select * from
-        <choose>
-            <when test="role == 'student'">
-                student
-            </when>
-            <otherwise>
-                teacher
-            </otherwise>
-        </choose>
+        student
         where userId = #{userId}
     </select>
     <select id="getById" resultType="com.example.demo.entity.roles.User">
