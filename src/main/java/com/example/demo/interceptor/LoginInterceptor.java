@@ -1,6 +1,7 @@
 package com.example.demo.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
+
+import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.util.RedisUtil;
 import com.example.demo.util.TokenUtils;
 import java.io.IOException;
@@ -25,17 +26,13 @@ public class LoginInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
       Object handler) {
-//        System.out.println("star prehandle");
+
     if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
       response.setStatus(HttpServletResponse.SC_OK);
       System.out.println("options");
       return true;
     }
     response.setCharacterEncoding("utf-8");
-    //登陆
-//        if ("/login/login".equals(request.getRequestURI())) {
-//            return true;
-//        }
 
     String token = request.getHeader("token");
     if (token != null) {
@@ -45,6 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         return true;
       }
     }
+
     System.out.println(request.getRequestURI());
 
     response.setContentType("application/json; charset=utf-8");
@@ -74,7 +72,7 @@ public class LoginInterceptor implements HandlerInterceptor {
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
       Object handler, Exception ex) throws Exception {
 
-    System.out.println(JSONObject.toJSON(request.getParameterMap()).toString());
+    System.out.println(JSONObject.parseObject(request.getParameterMap().toString(),HttpServletRequest.class).toString());
     log.info(handler.toString());
 
 //        System.out.println(JSONObject.toJSON(response).toString());

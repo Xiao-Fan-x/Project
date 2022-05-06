@@ -5,10 +5,14 @@ import com.example.demo.dao.master.StudentMapper;
 import com.example.demo.dao.master.TeacherMapper;
 import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.User;
+import com.example.demo.service.login.impl.Login;
 import com.example.demo.util.MD5Utils;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +64,7 @@ public class LoginImpl implements Login {
     } else {
       userResult = teacherMapper.getByUserId(user);
     }
+    userResult.setRoles(Arrays.asList(userResult.getRole()));
 
     if (password.equals(userResult.getPassword())) {
       userResult.setPassword("");

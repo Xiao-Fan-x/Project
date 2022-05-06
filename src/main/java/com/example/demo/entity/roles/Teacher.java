@@ -1,5 +1,6 @@
 package com.example.demo.entity.roles;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Teacher extends User {
     private String phone;
     private LocalDateTime registTime;
     private String role;
+    private List<String> roles;
     private String department;
     private String major;
 
@@ -34,6 +36,7 @@ public class Teacher extends User {
                 ", phone='" + phone + '\'' +
                 ", registTime=" + registTime +
                 ", role='" + role + '\'' +
+                ", roles=" + roles +
                 ", department='" + department + '\'' +
                 ", major='" + major + '\'' +
                 '}';

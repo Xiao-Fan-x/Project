@@ -1,6 +1,7 @@
 package com.example.demo.entity.roles;
 
 
+import java.util.List;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,10 @@ public class Student extends User {
     private String phone;
 
     private LocalDateTime registTime;  //登记时间
+
     private String role;        //身份 student
+
+    private List<String> roles;        //身份 student
     //    @NotNull
     private String department;  //系
     //    @NotNull
@@ -37,8 +41,9 @@ public class Student extends User {
                 ", gender='" + gender + '\'' +
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
-                ", registTime='" + registTime + '\'' +
+                ", registTime=" + registTime +
                 ", role='" + role + '\'' +
+                ", roles=" + roles +
                 ", department='" + department + '\'' +
                 ", major='" + major + '\'' +
                 ", className='" + className + '\'' +

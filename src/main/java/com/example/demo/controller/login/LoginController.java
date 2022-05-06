@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/login")
-public class Login {
+public class LoginController {
 
-//    private static final Logger logger = LoggerFactory.getLogger(Login.class);
+//    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 
   @Autowired

@@ -15,7 +15,7 @@ public interface StudentMapper {
 
     Student getByUserId(User user);
 
-    List<User> getById(@Param("id") String id);
+    User getById(@Param("id") String id);
 
     Boolean register(Student student);
 

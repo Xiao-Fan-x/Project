@@ -12,6 +12,11 @@ public class TokenUtils {
     private static final String TOKENKEY = "tjrac";
 
 
+    /**
+     * 创建Token
+     * @param userId
+     * @return
+     */
     public static String createToken(String userId){
         String token = null;
 
@@ -30,6 +35,11 @@ public class TokenUtils {
         return token;
     }
 
+    /**
+     * 从Token中获取userId
+     * @param token
+     * @return
+     */
     public static String getUserId(String token){
         if (StringUtils.isEmpty(token)){
             return null;
@@ -42,6 +52,11 @@ public class TokenUtils {
         return userId;
     }
 
+    /**
+     * Token 是否超时
+     * @param token
+     * @return
+     */
     public static Boolean isExpiration(String token){
         try {
             Boolean isExpire = Jwts.parser().setSigningKey(TOKENKEY)
@@ -53,6 +68,11 @@ public class TokenUtils {
         }
     }
 
+    /**
+     * 刷新 Token
+     * @param token
+     * @return
+     */
     public static String refreshToken(String token){
 
         String refreshToken;
