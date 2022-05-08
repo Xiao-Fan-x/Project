@@ -23,4 +23,6 @@ public interface ExamDao {
 
     Boolean uploadEssay(List<Essay> list);
 
+    Integer getSelectNum();
+
 }

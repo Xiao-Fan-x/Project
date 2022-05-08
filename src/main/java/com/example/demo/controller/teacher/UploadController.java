@@ -3,6 +3,9 @@ package com.example.demo.controller.teacher;
 
 import com.alibaba.excel.EasyExcel;
 import com.example.demo.dao.click.ExamDao;
+import com.example.demo.entity.exam.Blank;
+import com.example.demo.entity.exam.Essay;
+import com.example.demo.entity.exam.Judge;
 import com.example.demo.entity.exam.Select;
 import com.example.demo.service.upload.TeacherUploadImpl;
 import com.example.demo.util.UploadSelectUtils;
@@ -95,7 +98,7 @@ public class UploadController {
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
         String fileName = URLEncoder.encode("填空题模板", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), Select.class).sheet("模板").doWrite(new ArrayList<>());
+        EasyExcel.write(response.getOutputStream(), Blank.class).sheet("模板").doWrite(new ArrayList<>());
     }
 
     @GetMapping("judgeTemp")
@@ -105,7 +108,7 @@ public class UploadController {
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
         String fileName = URLEncoder.encode("判断题模板", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), Select.class).sheet("模板").doWrite(new ArrayList<>());
+        EasyExcel.write(response.getOutputStream(), Judge.class).sheet("模板").doWrite(new ArrayList<>());
     }
 
     @GetMapping("essayTemp")
@@ -115,6 +118,6 @@ public class UploadController {
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
         String fileName = URLEncoder.encode("简答题模板", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), Select.class).sheet("模板").doWrite(new ArrayList<>());
+        EasyExcel.write(response.getOutputStream(), Essay.class).sheet("模板").doWrite(new ArrayList<>());
     }
 }
