@@ -283,6 +283,12 @@
             <version>3.2.12</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.github.docker-java/docker-java-transport-httpclient5 -->
+        <dependency>
+            <groupId>com.github.docker-java</groupId>
+            <artifactId>docker-java-transport-httpclient5</artifactId>
+            <version>3.2.11</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>io.github.vvb2060.ndk</groupId>-->
 <!--            <artifactId>curl</artifactId>-->
