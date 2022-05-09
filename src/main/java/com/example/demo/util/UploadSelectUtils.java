@@ -2,7 +2,7 @@ package com.example.demo.util;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.click.ExamDao;
 import com.example.demo.entity.exam.Select;
 import lombok.extern.slf4j.Slf4j;
@@ -21,13 +21,13 @@ public class UploadSelectUtils<T> extends AnalysisEventListener<T> {
      */
     private static final int BATCH_COUNT = 5;
 
-    private List<T> list = new ArrayList<T>(BATCH_COUNT);
+    private final List<T> list = new ArrayList<T>(BATCH_COUNT);
 
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
     @Autowired
-    private ExamDao examDao;
+    private final ExamDao examDao;
 
     public UploadSelectUtils(ExamDao examDao) {
         this.examDao = examDao;
@@ -35,7 +35,7 @@ public class UploadSelectUtils<T> extends AnalysisEventListener<T> {
 
     @Override
     public void invoke(T select, AnalysisContext analysisContext) {
-        log.info("解析到一条数据:{}", JSON.toJSONString(select));
+        log.info("解析到一条数据:{}", JSONObject.toJSONString(select));
         list.add(select);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (list.size() >= BATCH_COUNT) {
