@@ -4,34 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.master.TeacherDao">
-    <insert id="addTeacherInfor">
-        insert into `judge`
-        (userId,
-        userName,
-        gender,
-        password,
-        phone,
-        registTime,
-        department,
-        major)
+    <insert id="uploadTeacher">
+        insert into `teacher`
+        (userId, userName,
+        gender, password,
+        phone, registTime,
+        grade, department, major)
         values
         <foreach collection="list" item="item"
                  separator="," index="index">
-            ( #{item.userId},
-            #{item.userName},
-            #{item.gender},
-            #{item.password},
-            #{item.phone},
-            #{item.registTime},
-            #{item.department},
-            #{item.major})
+            (#{item.userId}, #{item.userName},
+            #{item.gender}, #{item.password},
+            #{item.phone}, #{item.registTime},
+            #{item.grade}, #{item.department}, #{item.major})
         </foreach>
-
     </insert>
 
     <select id="getByUserId" resultType="com.example.demo.entity.roles.Teacher">
-        select * from
-            teacher
+        select *
+        from teacher
         where userId = #{userId}
     </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.example.demo.dao.master;
 
 import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.User;
+import jnr.ffi.Struct;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -18,5 +19,7 @@ public interface StudentDao {
     User getById(@Param("id") String id);
 
     Boolean register(Student student);
+
+    Boolean uploadStudent(List<Student> students);
 
 }

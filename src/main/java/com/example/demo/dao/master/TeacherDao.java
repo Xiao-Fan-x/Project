@@ -10,7 +10,6 @@ import java.util.List;
 public interface TeacherDao {
     Teacher getByUserId(User user);
 
-    Boolean addTeacherInfor(List<Teacher> teachers);
+    Boolean uploadTeacher(List<Teacher> teachers);
 
-//    Boolean loadTeacher(List<Teacher> teachers)
 }

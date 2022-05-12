@@ -15,13 +15,33 @@
     </insert>
 
 
+    <insert id="uploadStudent">
+        insert into `student`
+        ( userId, userName,
+        gender, password,
+        phone, registTime,
+        department, major, className,
+        grade)
+        values
+        <foreach collection="list" item="item"
+                 separator="," index="index">
+            ( #{item.userId}, #{item.userName},
+            #{item.gender}, #{item.password},
+            #{item.phone}, #{item.registTime},
+            #{item.department}, #{item.major}, #{item.className},
+            #{item.grade})
+        </foreach>
+    </insert>
+
+
     <select id="getByUserId" resultType="com.example.demo.entity.roles.Student">
-        select * from
-        student
+        select *
+        from student
         where userId = #{userId}
     </select>
     <select id="getById" resultType="com.example.demo.entity.roles.User">
-        select * from student
+        select *
+        from student
         where userId = #{id}
     </select>
 </mapper>

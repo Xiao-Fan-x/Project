@@ -3,7 +3,6 @@ package com.example.demo.controller.teacher;
 
 import com.example.demo.dao.click.ExamDao;
 import com.example.demo.entity.roles.Teacher;
-import com.example.demo.entity.roles.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ public class TeacherDashboard {
 
 
     @RequestMapping("/init")
-    public Object dashboard(@RequestBody Teacher teacher){
+    public Object dashboard(@RequestBody Teacher teacher) {
         Map res = new HashMap();
 
         //echarts

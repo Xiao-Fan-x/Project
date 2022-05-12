@@ -54,7 +54,7 @@ public class UploadTeacherUtils extends AnalysisEventListener<Teacher> {
 
     private void saveData() {
         log.info("{}条数据，开始存储数据库！", list.size());
-        teacherDao.uploadJudge(list);
+        teacherDao.uploadTeacher(list);
         log.info("存储数据库成功！");
     }
 }

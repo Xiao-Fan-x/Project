@@ -7,7 +7,8 @@ import com.example.demo.entity.exam.Blank;
 import com.example.demo.entity.exam.Essay;
 import com.example.demo.entity.exam.Judge;
 import com.example.demo.entity.exam.Select;
-import com.example.demo.service.upload.TeacherUploadImpl;
+import com.example.demo.service.upload.impl.StudentUpload;
+import com.example.demo.service.upload.impl.TeacherUpload;
 import com.example.demo.util.UploadBlankUtils;
 import com.example.demo.util.UploadEssayUtils;
 import com.example.demo.util.UploadJudgeUtils;
@@ -29,11 +30,57 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping(value = "/upload")
 public class UploadController {
-    TeacherUploadImpl teacherUpload;
 
     @Autowired
     private ExamDao examDao;
 
+    @Autowired
+    private TeacherUpload teacherUpload;
+
+    @Autowired
+    private StudentUpload studentUpload;
+
+
+    /**
+     * 上传学生信息
+     *
+     * @param file
+     * @return
+     */
+    @RequestMapping(value = "/student")
+    public Boolean uploadStudent(@RequestParam("file") MultipartFile file) {
+        try {
+            studentUpload.uploadStudent(file);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 上传教师信息
+     *
+     * @param file
+     * @return
+     */
+    @RequestMapping(value = "/teacher")
+    public Boolean uploadTeacher(@RequestParam("file") MultipartFile file) {
+        try {
+            teacherUpload.uploadTeacher(file);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 上传选择题
+     *
+     * @param file
+     * @return
+     */
     @RequestMapping(value = "/selectExam")
     public Boolean uploadSelect(@RequestParam("file") MultipartFile file) {
 
@@ -46,7 +93,12 @@ public class UploadController {
         }
     }
 
-
+    /**
+     * 上传填空题
+     *
+     * @param file
+     * @return
+     */
     @RequestMapping(value = "/blankExam")
     public Boolean uploadBlank(@RequestParam("file") MultipartFile file) {
 
@@ -59,6 +111,12 @@ public class UploadController {
         }
     }
 
+    /**
+     * 上传判断题
+     *
+     * @param file
+     * @return
+     */
     @RequestMapping(value = "/judgeExam")
     public Boolean uploadJudge(@RequestParam("file") MultipartFile file) {
 
@@ -71,6 +129,12 @@ public class UploadController {
         }
     }
 
+    /**
+     * 上传简答题
+     *
+     * @param file
+     * @return
+     */
     @RequestMapping(value = "/essayExam")
     public Boolean uploadEssay(@RequestParam("file") MultipartFile file) {
 
@@ -84,6 +148,12 @@ public class UploadController {
     }
 
 
+    /**
+     * 选择题模板
+     *
+     * @param file
+     * @return
+     */
     @RequestMapping("selectTemp")
     public void downloadSelectTemp(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
@@ -94,6 +164,12 @@ public class UploadController {
         EasyExcel.write(response.getOutputStream(), Select.class).sheet("模板").doWrite(new ArrayList<>());
     }
 
+    /**
+     * 填空题模板
+     *
+     * @param file
+     * @return
+     */
     @GetMapping("blankTemp")
     public void downloadBlankTemp(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
@@ -104,6 +180,13 @@ public class UploadController {
         EasyExcel.write(response.getOutputStream(), Blank.class).sheet("模板").doWrite(new ArrayList<>());
     }
 
+
+    /**
+     * 判断题模板
+     *
+     * @param file
+     * @return
+     */
     @GetMapping("judgeTemp")
     public void downloadJudgeTemp(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
@@ -114,6 +197,12 @@ public class UploadController {
         EasyExcel.write(response.getOutputStream(), Judge.class).sheet("模板").doWrite(new ArrayList<>());
     }
 
+    /**
+     * 简答题模板
+     *
+     * @param file
+     * @return
+     */
     @GetMapping("essayTemp")
     public void downloadEssayTemp(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
@@ -123,4 +212,6 @@ public class UploadController {
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), Essay.class).sheet("模板").doWrite(new ArrayList<>());
     }
+
+
 }
