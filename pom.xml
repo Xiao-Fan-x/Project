@@ -289,12 +289,29 @@
             <artifactId>docker-java-transport-httpclient5</artifactId>
             <version>3.2.11</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.github.vvb2060.ndk</groupId>-->
-<!--            <artifactId>curl</artifactId>-->
-<!--            <version>7.75.0</version>-->
-<!--            <type>aar</type>-->
-<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/com.spotify/docker-client -->
+        <dependency>
+            <groupId>com.spotify</groupId>
+            <artifactId>docker-client</artifactId>
+            <version>8.16.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.auto.value/auto-value -->
+        <dependency>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value</artifactId>
+            <version>1.9</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.auto.value/auto-value-annotations -->
+        <dependency>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value-annotations</artifactId>
+            <version>1.9</version>
+        </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>

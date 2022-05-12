@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface StudentMapper {
+public interface StudentDao {
 
 
     Student getByUserId(User user);

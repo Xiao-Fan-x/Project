@@ -29,6 +29,10 @@ public class UploadEssayUtils extends AnalysisEventListener<Essay> {
     @Autowired
     private ExamDao examDao;
 
+    public UploadEssayUtils(ExamDao examDao) {
+        this.examDao = examDao;
+    }
+
 
     @Override
     public void invoke(Essay essay, AnalysisContext analysisContext) {

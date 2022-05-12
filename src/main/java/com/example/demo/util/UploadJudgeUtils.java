@@ -29,6 +29,10 @@ public class UploadJudgeUtils extends AnalysisEventListener<Judge> {
     @Autowired
     private ExamDao examDao;
 
+    public UploadJudgeUtils(ExamDao examDao) {
+        this.examDao = examDao;
+    }
+
 
     @Override
     public void invoke(Judge judge, AnalysisContext analysisContext) {

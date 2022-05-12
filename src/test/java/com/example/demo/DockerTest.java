@@ -102,7 +102,7 @@ public class DockerTest {
         CreateContainerResponse container = containerCmd.exec();
 //        client.startContainerCmd(container.getId()).exec();
 //        LogContainerCmd cmd = client.logContainerCmd(container.getId()).withStdOut(true);
-            client.crea
+//            client.crea
         try {
             client.execCreateCmd(container.getId()).withTty(true)
                     .withAttachStdin(true).withAttachStdout(true).exec();

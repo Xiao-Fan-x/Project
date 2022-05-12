@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.click.ExamDao">
+
+
+    <insert id="uploadSelect">
+        insert into `select`
+        (id,detail,pointA,pointB,pointC,pointD,answer,reply,grade,
+        department,major,subject,analysis)
+        values
+        <foreach collection="list" item="item"
+                 separator="," index="index">
+            (generateUUIDv4(),#{item.detail},#{item.pointA},#{item.pointB}
+            ,#{item.pointC},#{item.pointD},#{item.answer},#{item.reply},#{item.grade}
+            ,#{item.department},#{item.major},#{item.subject},#{item.analysis})
+        </foreach>
+
+    </insert>
+    <insert id="uploadBlank">
+        insert into `blank`
+        (detail, answer, reply, grade, department, major, subject, analysis)
+        values
+        <foreach collection="list" item="item"
+                 separator="," index="index">
+            (#{item.detail},#{item.answer},
+            #{item.reply}, #{item.grade},
+            #{item.department}, #{item.major},
+            #{item.subject}, #{item.analysis})
+        </foreach>
+    </insert>
+    <insert id="uploadJudge">
+        insert into `judge`
+        (detail,answer,
+        pointOne, pointTwo,
+        reply, grade,
+        department, major,
+        subject, analysis)
+        values
+        <foreach collection="list" item="item"
+                 separator="," index="index">
+            (#{item.detail},#{item.answer},
+            #{item.pointOne}, #{item.pointTwo},
+            #{item.reply}, #{item.grade},
+            #{item.department}, #{item.major},
+            #{item.subject}, #{item.analysis})
+        </foreach>
+    </insert>
+    <insert id="uploadEssay">
+        insert into `essay`
+        (detail, pointOne, pointTwo,
+        pointThree, pointFour, answer,
+        reply, grade, department, major,
+        subject, analysis)
+        values
+        <foreach collection="list" item="item"
+                 separator="," index="index">
+            (#{item.detail}, #{item.pointOne},
+            #{item.pointTwo}, #{item.pointThree},
+            #{item.pointFour}, #{item.answer},
+            #{item.reply}, #{item.grade},
+            #{item.department}, #{item.major},
+            #{item.subject}, #{item.analysis})
+        </foreach>
+    </insert>
+
+    <!-- get select number -->
+    <select id="getSelectNum" resultType="java.lang.Integer">
+        select count(*) from select
+        where 1=1
+        <if test=""></if>
+    </select>
+</mapper>

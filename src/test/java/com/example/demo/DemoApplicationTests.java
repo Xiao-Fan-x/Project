@@ -1,13 +1,11 @@
 package com.example.demo;
 
 import com.example.demo.dao.click.ExamMsg;
-import com.example.demo.dao.master.StudentMapper;
-import com.example.demo.entity.roles.User;
+import com.example.demo.dao.master.StudentDao;
 import com.example.demo.util.MD5Utils;
 import com.example.demo.util.RedisUtil;
 import com.example.demo.util.TokenUtils;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +27,7 @@ class DemoApplicationTests {
   private RedisUtil redisUtil;
 
   @Autowired
-  private StudentMapper studentMapper;
+  private StudentDao studentDao;
 
   @Test
   void clickhouseTest() {

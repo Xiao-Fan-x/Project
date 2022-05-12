@@ -8,6 +8,9 @@ import com.example.demo.entity.exam.Essay;
 import com.example.demo.entity.exam.Judge;
 import com.example.demo.entity.exam.Select;
 import com.example.demo.service.upload.TeacherUploadImpl;
+import com.example.demo.util.UploadBlankUtils;
+import com.example.demo.util.UploadEssayUtils;
+import com.example.demo.util.UploadJudgeUtils;
 import com.example.demo.util.UploadSelectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +51,7 @@ public class UploadController {
     public Boolean uploadBlank(@RequestParam("file") MultipartFile file) {
 
         try {
-            EasyExcel.read(file.getInputStream(), Select.class, new UploadSelectUtils(examDao)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), Blank.class, new UploadBlankUtils(examDao)).sheet().doRead();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,7 +63,7 @@ public class UploadController {
     public Boolean uploadJudge(@RequestParam("file") MultipartFile file) {
 
         try {
-            EasyExcel.read(file.getInputStream(), Select.class, new UploadSelectUtils(examDao)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), Judge.class, new UploadJudgeUtils(examDao)).sheet().doRead();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,7 +75,7 @@ public class UploadController {
     public Boolean uploadEssay(@RequestParam("file") MultipartFile file) {
 
         try {
-            EasyExcel.read(file.getInputStream(), Select.class, new UploadSelectUtils(examDao)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), Essay.class, new UploadEssayUtils(examDao)).sheet().doRead();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +84,7 @@ public class UploadController {
     }
 
 
-    @GetMapping("selectTemp")
+    @RequestMapping("selectTemp")
     public void downloadSelectTemp(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
