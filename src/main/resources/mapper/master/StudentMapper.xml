@@ -39,9 +39,19 @@
         from student
         where userId = #{userId}
     </select>
-    <select id="getById" resultType="com.example.demo.entity.roles.User">
-        select *
-        from student
-        where userId = #{id}
+
+    <select id="getStudentNum" resultType="java.lang.Integer">
+        select count(*) from `student`
+        where grade = #{grade}
+        <if test="department!= '' and department != null">
+            department = #{department}
+        </if>
+        <if test="major != '' and major != null">
+            major = #{major}
+        </if>
+<!--        <if test="className != '' and className != null">-->
+<!--            className = #{className}-->
+<!--        </if>-->
     </select>
+
 </mapper>

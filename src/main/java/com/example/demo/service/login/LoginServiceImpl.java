@@ -5,7 +5,7 @@ import com.example.demo.dao.master.StudentDao;
 import com.example.demo.dao.master.TeacherDao;
 import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.User;
-import com.example.demo.service.login.impl.Login;
+import com.example.demo.service.login.impl.LoginService;
 import com.example.demo.util.MD5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 @Service
 @Slf4j
-public class LoginImpl implements Login {
+public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private StudentDao studentDao;
@@ -34,24 +34,22 @@ public class LoginImpl implements Login {
      * @return
      */
     @Override
-    public Object register(Student student) throws IOException {
-        log.info(student.toString());
-        String userId = student.getUserId();
-//        studentMapper.getByUserId(userId);
-        System.out
-                .println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//        student.setRegistTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+    public Boolean register(Student student) throws IOException {
+
+        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         student.setRegistTime(LocalDateTime.now());
         student.setPassword(MD5Utils.encrypt(student.getPassword()));
         return studentDao.register(student);
+
     }
 
 
-  /**
-   * 登录
-   * @param user
-   * @return
-   */
+    /**
+     * 登录
+     *
+     * @param user
+     * @return
+     */
     public Object login(User user) {
 
         String password = user.getPassword();

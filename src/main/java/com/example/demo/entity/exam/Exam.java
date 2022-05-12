@@ -1,5 +1,6 @@
 package com.example.demo.entity.exam;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -7,6 +8,7 @@ import java.util.List;
 
 
 @Data
+@Builder
 public class Exam {
 
     private String id;  //'id试卷编号 使用时间编写 yyyyMMddHHmm'

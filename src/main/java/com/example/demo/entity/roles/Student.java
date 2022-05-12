@@ -1,12 +1,14 @@
 package com.example.demo.entity.roles;
 
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@Builder
 public class Student extends User {
 
     private String userId;//工号

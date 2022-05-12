@@ -68,8 +68,96 @@
 
     <!-- get select number -->
     <select id="getSelectNum" resultType="java.lang.Integer">
-        select count(*) from select
-        where 1=1
-        <if test=""></if>
+        select count(*) from `select`
+        <where>
+            <if test="department!= '' and department != null">
+                department = #{department}
+            </if>
+            <if test="major != '' and major != null">
+                and major = #{major}
+            </if>
+            <if test="className != '' and className != null">
+                and className = #{className}
+            </if>
+        </where>
     </select>
+
+    <select id="getBlankNum" resultType="java.lang.Integer">
+        select count(*)
+        from `blank`
+        <where>
+            <if test="department!= '' and department != null">
+                department = #{department}
+            </if>
+            <if test="major != '' and major != null">
+                and major = #{major}
+            </if>
+            <if test="className != '' and className != null">
+                and className = #{className}
+            </if>
+        </where>
+    </select>
+
+    <select id="getJudgeNum" resultType="java.lang.Integer">
+        select count(*)
+        from `judge`
+        <where>
+            <if test="department!= '' and department != null">
+                department = #{department}
+            </if>
+            <if test="major != '' and major != null">
+                and major = #{major}
+            </if>
+            <if test="className != '' and className != null">
+                and className = #{className}
+            </if>
+        </where>
+    </select>
+
+    <select id="getEssayNum" resultType="java.lang.Integer">
+        select count(*)
+        from `essay`
+        <where>
+            <if test="department!= '' and department != null">
+                department = #{department}
+            </if>
+            <if test="major != '' and major != null">
+                and major = #{major}
+            </if>
+            <if test="className != '' and className != null">
+                and className = #{className}
+            </if>
+        </where>
+    </select>
+
+    <select id="getExam" resultType="com.example.demo.entity.exam.Exam">
+        select *
+        from `exam`
+        where createPeople = #{createPeople}
+          and startTime <![CDATA[>=]]> #{startTime}
+          and startTime <![CDATA[<=]]> #{endTime}
+    </select>
+
+    <select id="getExamDepartment" resultType="com.example.demo.entity.exam.Exam">
+        select *
+        from `exam`
+        <where>
+            <if test="startTime != '' and startTime != null">
+                startTime <![CDATA[>=]]>  #{startTime}
+            </if>
+            <if test="endTime != '' and endTime != null">
+                and startTime <![CDATA[<=]]>  #{endTime}
+            </if>
+            <if test="department!= '' and department != null">
+                and department = #{department}
+            </if>
+            <if test="major != '' and major != null">
+                and major = #{major}
+            </if>
+            <if test="className != '' and className != null">
+                and className = #{className}
+            </if>
+        </where>
+    </select>
+
 </mapper>

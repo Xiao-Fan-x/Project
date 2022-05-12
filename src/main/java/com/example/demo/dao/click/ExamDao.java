@@ -1,14 +1,13 @@
 package com.example.demo.dao.click;
 
 
-import com.example.demo.entity.exam.Blank;
-import com.example.demo.entity.exam.Essay;
-import com.example.demo.entity.exam.Judge;
-import com.example.demo.entity.exam.Select;
+import com.example.demo.entity.exam.*;
+import com.example.demo.entity.roles.Teacher;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper
 @Component
@@ -23,7 +22,18 @@ public interface ExamDao {
 
     Boolean uploadEssay(List<Essay> list);
 
-    Integer getSelectNum();
 
 
+    Integer getSelectNum(Teacher teacher);
+
+    Integer getBlankNum(Teacher teacher);
+
+    Integer getJudgeNum(Teacher teacher);
+
+    Integer getEssayNum(Teacher teacher);
+
+
+    List<Exam> getExam(Exam exam);
+
+    List<Exam> getExamDepartment(Exam exam);
 }

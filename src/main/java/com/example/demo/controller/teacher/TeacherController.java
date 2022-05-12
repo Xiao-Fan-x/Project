@@ -1,32 +1,34 @@
 package com.example.demo.controller.teacher;
 
 
-import com.example.demo.dao.click.ExamDao;
 import com.example.demo.entity.roles.Teacher;
+import com.example.demo.service.teacher.impl.TeacherService;
+import com.example.demo.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 @Slf4j
 @RestController
-@RequestMapping("/teacherdash")
-public class TeacherDashboard {
+@RequestMapping("/teacher")
+public class TeacherController {
 
     @Autowired
-    private ExamDao examDao;
-
+    private TeacherService teacherService;
 
     @RequestMapping("/init")
     public Object dashboard(@RequestBody Teacher teacher) {
-        Map res = new HashMap();
-
-        //echarts
-        return null;
+        try {
+            return Result.ResultSuccess(teacherService.initDash(teacher));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.ResultErr(null, "程序出错");
+        }
     }
+
+
+
 }
