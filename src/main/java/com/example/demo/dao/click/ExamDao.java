@@ -5,6 +5,8 @@ import com.example.demo.entity.exam.*;
 import com.example.demo.entity.roles.Teacher;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -13,7 +15,7 @@ import java.util.Set;
 @Component
 public interface ExamDao {
 
-
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     Boolean uploadSelect(List<Select> list);
 
     Boolean uploadBlank(List<Blank> list);

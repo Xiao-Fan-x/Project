@@ -35,12 +35,13 @@ public class TeacherServiceImpl implements TeacherService {
         Integer judgeNum = examDao.getJudgeNum(teacher);
         Integer essayNum = examDao.getEssayNum(teacher);
 
-        Student student = Student.builder()
-                .gender(teacher.getGender())
-                .department(teacher.getDepartment())
-                .build();
+//        Student student = Student.builder()
+//                .gender(teacher.getGender())
+//                .department(teacher.getDepartment())
+//                .build();
 
-        Integer studentNum = studentDao.getStudentNum(student);
+//        Integer studentNum = studentDao.getStudentNum(teacher);
+//        Integer studentNum = studentDao.getStudentNum(student);
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endTime = now.plusMonths(1);
@@ -65,7 +66,7 @@ public class TeacherServiceImpl implements TeacherService {
         res.put("essayNum",essayNum);
         res.put("totalNum",totalNum);
 
-        res.put("studentNum",studentNum);
+//        res.put("studentNum",studentNum);
         res.put("examRes",examRes);
         res.put("examDep",examDep);
 

@@ -34,7 +34,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
         response.setCharacterEncoding("utf-8");
-
         String token = request.getHeader("token");
         if (token != null) {
             System.out.println("想要的token" + token);
@@ -43,14 +42,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-
-        System.out.println(request.getRequestURI());
-
         response.setContentType("application/json; charset=utf-8");
-
         try {
             JSONObject json = new JSONObject();
-
             json.put("msg", "token verify fail");
             json.put("code", "500");
             response.getWriter().append(json.toString());
@@ -59,24 +53,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         } catch (IOException e) {
             return false;
         }
-
     }
-
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-
         System.out.println("token1");
     }
-
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
                                 Object handler, Exception ex) throws Exception {
-
-        System.out.println(JSONObject.parseObject(request.getParameterMap().toString(), HttpServletRequest.class).toString());
-        log.info(handler.toString());
-
-//        System.out.println(JSONObject.toJSON(response).toString());
-        System.out.println("token2");
     }
 }

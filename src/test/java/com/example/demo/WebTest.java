@@ -8,15 +8,16 @@ import com.spotify.docker.client.exceptions.DockerCertificateException;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.ContainerConfig;
 import com.spotify.docker.client.messages.ContainerCreation;
-import com.spotify.docker.client.messages.ContainerExit;
+import com.spotify.docker.client.messages.ExecCreation;
+import com.spotify.docker.client.messages.HostConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * web读写案例
@@ -31,7 +32,7 @@ public class WebTest {
     String Path = "/home/xiaofan/Desktop/";
     @Autowired
     private ExamDao examDao;
-
+    
     //    https://github.com/spotify/docker-client/blob/master/docs/user_manual.md#troubleshooting
     @Test
     void test() throws IOException, DockerException, InterruptedException, DockerCertificateException {
@@ -48,31 +49,38 @@ public class WebTest {
 //            System.out.println(e.names());
 //        });
 //        String logs;
+        HostConfig hostConfig = HostConfig.builder()
+                .appendBinds(HostConfig.Bind.from("C:\\Users\\17430\\Desktop\\demo\\code")
+                        .to("/temp/").build())
+                .build();
+
+        ContainerConfig containerConfig = ContainerConfig.builder()
+                .image("alpine:v5")
+                .attachStdin(true).tty(true)
+                .attachStdout(true).openStdin(true)
+                .hostConfig(hostConfig).workingDir("/temp/").cmd("sh").build();
+//                .cmd("sh", "-c", "while :; do sleep 1; done")
+
+        ContainerCreation creation = client.createContainer(containerConfig);
+        String id = creation.id();
+        client.startContainer(id);
+//        String[] command = new String[2];
+//        command[0]="g++ \\-o hello hello.cpp";
+//        command[1] = ".\\/hello";
+//        command[0] = "javac" + " Main.java";
+//        command[1] = "java" + "Main";
+//        String[] command = {"g++","-o","hello","hello.cpp"};
+//        String[] command = {"python3","demo.py"};
+        String[] command = {"java"+" Main"};
+
+        ExecCreation execCreation = client.execCreate(
+                id, command, DockerClient.ExecCreateParam.attachStdout(),
+                DockerClient.ExecCreateParam.attachStderr());
 
 
-        ContainerCreation creation = client.createContainer(
-                ContainerConfig.builder()
-                        .image("python:3.8")
-                        .attachStdin(true).tty(true).cmd("/bin/bash")
-                        .attachStdout(true).openStdin(true).build());
-        client.resizeTty(creation.id(),10,10);
-//        final ContainerExit exit = docker.waitContainer("containerID");
-//        try (LogStream stream = client.logs(creation.id(), DockerClient.LogsParam.stdout(), DockerClient.LogsParam.stderr())) {
-//            logs = stream.readFully();
-//        }
-//        System.out.println(logs+"----");
-        OutputStream infor = null;
-        OutputStream inforErr =null;
-        final String logs;
-        try (LogStream stream = client.attachContainer(creation.id(),
-                DockerClient.AttachParameter.LOGS, DockerClient.AttachParameter.STDOUT,
-                DockerClient.AttachParameter.STDERR, DockerClient.AttachParameter.STREAM)) {
-            logs = stream.readFully();
-        }
+        LogStream output = client.execStart(execCreation.id());
+        String execOutput = output.readFully();
 
-        String str = new String(infor.toString());
-//        System.out.println(infor.);
-        System.out.println(logs + "----"+ str);
-
+        System.out.println(execOutput);
     }
 }
