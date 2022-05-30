@@ -1,13 +1,17 @@
 package com.example.demo.entity.exam;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Exam {
 
     private Integer id;  //'id试卷编号 使用时间编写 yyyyMMddHHmm'
@@ -26,6 +30,7 @@ public class Exam {
     private String className;
 
     private String elective;
+    private Integer page;
 
     @Override
     public String toString() {
@@ -44,6 +49,7 @@ public class Exam {
                 ", subject='" + subject + '\'' +
                 ", className='" + className + '\'' +
                 ", elective='" + elective + '\'' +
+                ", page=" + page +
                 '}';
     }
 //    private List<Select> selectList;

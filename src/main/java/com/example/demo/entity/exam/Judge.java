@@ -20,5 +20,23 @@ public class Judge {
     private String subject;     //学科
 
     private String analysis;
+    private Integer page;
 
+    @Override
+    public String toString() {
+        return "Judge{" +
+                "id='" + id + '\'' +
+                ", detail='" + detail + '\'' +
+                ", answer='" + answer + '\'' +
+                ", pointOne='" + pointOne + '\'' +
+                ", pointTwo='" + pointTwo + '\'' +
+                ", reply='" + reply + '\'' +
+                ", grade='" + grade + '\'' +
+                ", department='" + department + '\'' +
+                ", major='" + major + '\'' +
+                ", subject='" + subject + '\'' +
+                ", analysis='" + analysis + '\'' +
+                ", page=" + page +
+                '}';
+    }
 }

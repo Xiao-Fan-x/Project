@@ -22,5 +22,25 @@ public class Essay {
     private String subject;     //学科
 
     private String analysis;
+    private Integer page;
 
+    @Override
+    public String toString() {
+        return "Essay{" +
+                "id='" + id + '\'' +
+                ", detail='" + detail + '\'' +
+                ", pointOne='" + pointOne + '\'' +
+                ", pointTwo='" + pointTwo + '\'' +
+                ", pointThree='" + pointThree + '\'' +
+                ", pointFour='" + pointFour + '\'' +
+                ", answer='" + answer + '\'' +
+                ", reply='" + reply + '\'' +
+                ", grade='" + grade + '\'' +
+                ", department='" + department + '\'' +
+                ", major='" + major + '\'' +
+                ", subject='" + subject + '\'' +
+                ", analysis='" + analysis + '\'' +
+                ", page=" + page +
+                '}';
+    }
 }

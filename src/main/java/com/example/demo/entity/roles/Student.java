@@ -1,14 +1,18 @@
 package com.example.demo.entity.roles;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student extends User {
 
     private String userId;//工号
@@ -23,6 +27,7 @@ public class Student extends User {
     private String major;       //专业
     private String className;   //班级
     private String grade;       //年级
+
 
     @Override
     public String toString() {

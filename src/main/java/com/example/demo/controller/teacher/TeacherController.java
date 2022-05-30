@@ -7,7 +7,7 @@ import com.example.demo.service.teacher.impl.TeacherService;
 import com.example.demo.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,18 +31,17 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/select")
-    public Object getSelect(@RequestBody Select select){
+    @PostMapping("/select")
+    public Object getSelect(@RequestBody Select select) {
 
         try {
-           return Result.ResultSuccess(teacherService.getSelect(select));
+            return Result.ResultSuccess(teacherService.getSelect(select));
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.ResultErr(e,"教师获取选择题失败！");
+            return Result.ResultErr(e, "教师获取选择题失败！");
         }
 
     }
-
 
 
 }

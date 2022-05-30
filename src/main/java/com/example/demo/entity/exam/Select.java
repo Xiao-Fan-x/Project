@@ -21,6 +21,25 @@ public class Select {
     private String subject;     //学科
 
     private String analysis;
+    private Integer page;
 
-
+    @Override
+    public String toString() {
+        return "Select{" +
+                "id='" + id + '\'' +
+                ", detail='" + detail + '\'' +
+                ", pointA='" + pointA + '\'' +
+                ", pointB='" + pointB + '\'' +
+                ", pointC='" + pointC + '\'' +
+                ", pointD='" + pointD + '\'' +
+                ", answer='" + answer + '\'' +
+                ", reply='" + reply + '\'' +
+                ", grade='" + grade + '\'' +
+                ", department='" + department + '\'' +
+                ", major='" + major + '\'' +
+                ", subject='" + subject + '\'' +
+                ", analysis='" + analysis + '\'' +
+                ", page=" + page +
+                '}';
+    }
 }
