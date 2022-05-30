@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.dao.click.ExamDao;
+import com.example.demo.dao.click.ExamDetailDao;
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.LogStream;
@@ -16,7 +16,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -31,7 +30,7 @@ public class WebTest {
     private final String restEndpointUrl = "tcp://127.0.0.1:2375";
     String Path = "/home/xiaofan/Desktop/";
     @Autowired
-    private ExamDao examDao;
+    private ExamDetailDao examDetailDao;
     
     //    https://github.com/spotify/docker-client/blob/master/docs/user_manual.md#troubleshooting
     @Test

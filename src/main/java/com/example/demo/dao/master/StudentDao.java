@@ -1,27 +1,27 @@
 package com.example.demo.dao.master;
 
+import com.example.demo.entity.ExamStu;
 import com.example.demo.entity.roles.Student;
-import com.example.demo.entity.roles.Teacher;
 import com.example.demo.entity.roles.User;
-import jnr.ffi.Struct;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
-@Repository
 public interface StudentDao {
 
 
     Student getByUserId(User user);
 
-//    User getById(@Param("userId") String id);
+    Student getById(@Param("userId") String userId);
 
     Boolean register(Student student);
 
     Boolean uploadStudent(List<Student> students);
 
     Integer getStudentNum(Student student);
+
+
+    List<ExamStu> getExam(ExamStu examStu);
 }

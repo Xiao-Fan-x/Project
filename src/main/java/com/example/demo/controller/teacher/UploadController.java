@@ -2,7 +2,7 @@ package com.example.demo.controller.teacher;
 
 
 import com.alibaba.excel.EasyExcel;
-import com.example.demo.dao.click.ExamDao;
+import com.example.demo.dao.click.ExamDetailDao;
 import com.example.demo.entity.exam.Blank;
 import com.example.demo.entity.exam.Essay;
 import com.example.demo.entity.exam.Judge;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class UploadController {
 
     @Autowired
-    private ExamDao examDao;
+    private ExamDetailDao examDetailDao;
 
     @Autowired
     private TeacherUpload teacherUpload;
@@ -85,7 +85,7 @@ public class UploadController {
     public Boolean uploadSelect(@RequestParam("file") MultipartFile file) {
 
         try {
-            EasyExcel.read(file.getInputStream(), Select.class, new UploadSelectUtils(examDao)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), Select.class, new UploadSelectUtils(examDetailDao)).sheet().doRead();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -103,7 +103,7 @@ public class UploadController {
     public Boolean uploadBlank(@RequestParam("file") MultipartFile file) {
 
         try {
-            EasyExcel.read(file.getInputStream(), Blank.class, new UploadBlankUtils(examDao)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), Blank.class, new UploadBlankUtils(examDetailDao)).sheet().doRead();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,7 +121,7 @@ public class UploadController {
     public Boolean uploadJudge(@RequestParam("file") MultipartFile file) {
 
         try {
-            EasyExcel.read(file.getInputStream(), Judge.class, new UploadJudgeUtils(examDao)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), Judge.class, new UploadJudgeUtils(examDetailDao)).sheet().doRead();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class UploadController {
     public Boolean uploadEssay(@RequestParam("file") MultipartFile file) {
 
         try {
-            EasyExcel.read(file.getInputStream(), Essay.class, new UploadEssayUtils(examDao)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), Essay.class, new UploadEssayUtils(examDetailDao)).sheet().doRead();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -154,7 +154,7 @@ public class UploadController {
      * @param file
      * @return
      */
-    @RequestMapping("selectTemp")
+    @GetMapping("selectTemp")
     public void downloadSelectTemp(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");

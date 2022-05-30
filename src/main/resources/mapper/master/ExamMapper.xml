@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.master.ExamDao">
+    <insert id="createExam">
+        insert into `exam`
+        (id, examName, createTime, createPeople, startTime,
+        endTime, duration, grade
+        <choose>
+            <when test="elective != null and elective != ''">
+                ,elective
+            </when>
+            <otherwise>
+                ,department
+                <if test="major != null and major != ''">
+                    ,major
+                </if>
+                <if test="subject != null and subject != ''">
+                    ,subject
+                </if>
+                <if test="className != null and className != ''">
+                    ,className
+                </if>
+            </otherwise>
+        </choose>
+        )
+        values (
+        #{id}, #{examName},
+        #{createTime}, #{createPeople},
+        #{startTime}, #{endTime},
+        #{uration}, #{grade}
+        <choose>
+            <when test="elective != null and elective != ''">
+                #{elective}
+            </when>
+            <otherwise>
+                ,#{department}
+                <if test="major != null and major != ''">
+                    ,#{major}
+                </if>
+                <if test="subject != null and subject != ''">
+                    ,#{subject}
+                </if>
+                <if test="className != null and className != ''">
+                    ,#{className}
+                </if>
+            </otherwise>
+        </choose>
+        )
+    </insert>
+
+
+    <select id="getTeacherExamAll" resultType="com.example.demo.entity.exam.Exam">
+        select id,
+               examName,
+               startTime,
+               grade,
+               department,
+               major,
+               subject,
+               className,
+               elective
+        from `exam`
+        where createPeople = #{userId}
+        order by startTime
+    </select>
+
+
+    <select id="getTeacherExamRelative" resultType="com.example.demo.entity.exam.Exam">
+        select id,
+        examName,
+        startTime,
+        grade,
+        department,
+        major,
+        subject,
+        className,
+        elective
+        from `exam`
+        <where>
+            <if test="grade != null and grade != ''">
+                grade = #{grade}
+            </if>
+            <if test="department != null and department != ''">
+                department = #{department}
+            </if>
+            <if test="major != null and major != ''">
+                major = #{major}
+            </if>
+        </where>
+        order by startTime
+
+    </select>
+    <select id="getExamByExamId" resultType="com.example.demo.entity.exam.Exam">
+        select *
+        from `exam`
+        where examId = #{examId}
+        limit 1
+    </select>
+</mapper>

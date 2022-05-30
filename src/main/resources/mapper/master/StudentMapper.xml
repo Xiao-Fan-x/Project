@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.demo.dao.master.StudentDao">
     <insert id="register">
-        insert into student
+        insert into `student`
         (userId, userName, gender, password,
          phone, registTime, department, major, className, grade)
             value ( #{userId},#{userName},#{gender},#{password},
@@ -53,5 +53,19 @@
 <!--            className = #{className}-->
 <!--        </if>-->
     </select>
+
+    <select id="getById" resultType="com.example.demo.entity.roles.Student">
+        select *
+        from student
+        where userId = #{userId}
+
+    </select>
+
+    <select id="getExam" resultType="com.example.demo.entity.ExamStu">
+        select * from `examStu`
+        where userId = #{userId}
+        and startTime <![CDATA[>=]]]> #{startTime}
+    </select>
+
 
 </mapper>

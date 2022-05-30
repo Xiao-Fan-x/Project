@@ -25,4 +25,10 @@
         from teacher
         where userId = #{userId}
     </select>
+
+    <select id="getById" resultType="com.example.demo.entity.roles.Teacher">
+        select *
+        from teacher
+        where userId = #{userId}
+    </select>
 </mapper>

@@ -2,10 +2,9 @@ package com.example.demo.service.teacher;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo.dao.click.ExamDao;
+import com.example.demo.dao.click.ExamDetailDao;
 import com.example.demo.dao.master.StudentDao;
 import com.example.demo.entity.exam.Exam;
-import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.Teacher;
 import com.example.demo.service.teacher.impl.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
-    private ExamDao examDao;
+    private ExamDetailDao examDetailDao;
 
     @Autowired
     private StudentDao studentDao;
@@ -30,10 +29,10 @@ public class TeacherServiceImpl implements TeacherService {
         JSONObject res = new JSONObject();
 
         //Get  Num
-        Integer selectNum = examDao.getSelectNum(teacher);
-        Integer blankNum = examDao.getBlankNum(teacher);
-        Integer judgeNum = examDao.getJudgeNum(teacher);
-        Integer essayNum = examDao.getEssayNum(teacher);
+        Integer selectNum = examDetailDao.getSelectNum(teacher);
+        Integer blankNum = examDetailDao.getBlankNum(teacher);
+        Integer judgeNum = examDetailDao.getJudgeNum(teacher);
+        Integer essayNum = examDetailDao.getEssayNum(teacher);
 
 //        Student student = Student.builder()
 //                .gender(teacher.getGender())
@@ -54,9 +53,9 @@ public class TeacherServiceImpl implements TeacherService {
                 .endTime(endTime)
                 .build();
         //该老师自己发布的测试
-        List<Exam> examRes = examDao.getExam(exam);
+        List<Exam> examRes = examDetailDao.getExam(exam);
         //同系专业的老师出的试卷
-        List<Exam> examDep = examDao.getExamDepartment(exam);
+        List<Exam> examDep = examDetailDao.getExamDepartment(exam);
         examDep.removeAll(examRes);
 
         Integer totalNum = selectNum + blankNum + judgeNum + essayNum;

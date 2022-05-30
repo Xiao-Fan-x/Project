@@ -9,11 +9,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 @Mapper
 @Component
-public interface ExamDao {
+public interface ExamDetailDao {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     Boolean uploadSelect(List<Select> list);

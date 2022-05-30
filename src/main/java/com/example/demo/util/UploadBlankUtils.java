@@ -3,7 +3,7 @@ package com.example.demo.util;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo.dao.click.ExamDao;
+import com.example.demo.dao.click.ExamDetailDao;
 import com.example.demo.entity.exam.Blank;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class UploadBlankUtils extends AnalysisEventListener<Blank> {
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
     @Autowired
-    private ExamDao examDao;
+    private ExamDetailDao examDetailDao;
 
-    public UploadBlankUtils(ExamDao examDao) {
-        this.examDao = examDao;
+    public UploadBlankUtils(ExamDetailDao examDetailDao) {
+        this.examDetailDao = examDetailDao;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class UploadBlankUtils extends AnalysisEventListener<Blank> {
 
     private void saveData() {
         log.info("{}条数据，开始存储数据库！", list.size());
-        examDao.uploadBlank(list);
+        examDetailDao.uploadBlank(list);
         log.info("存储数据库成功！");
     }
 }

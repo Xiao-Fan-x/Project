@@ -10,9 +10,9 @@ import com.example.demo.util.Result;
 import com.example.demo.util.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -33,8 +33,7 @@ public class LoginController {
     private LoginServiceImpl login;
 
 
-    @RequestMapping(value = "/login")
-    @ResponseBody
+    @PostMapping(value = "/login")
     public Object login(@RequestBody User user) {
         Object obj = login.login(user);
 
@@ -49,14 +48,14 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/register")
+    @PostMapping(value = "/register")
     public Object register(@RequestBody Student student) {
         try {
             log.info("注册");
-            if (login.register(student)){
+            if (login.register(student)) {
                 return Result.ResultSuccess(true);
-            }else {
-                return Result.ResultErr(false,"注册失败！");
+            } else {
+                return Result.ResultErr(false, "注册失败！");
             }
         } catch (Exception e) {
             e.printStackTrace();
