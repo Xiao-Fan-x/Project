@@ -51,6 +51,24 @@
         )
     </insert>
 
+    <insert id="sendExam">
+        insert into `examStu`
+        (userId, examId, examName,
+        createTime, createPeople, startTime,
+        endTime, grade, department,
+        major, subject, className, electiv)
+        values
+        <foreach collection="list" item="item" separator="," index="index">
+            (#{item.userId}, #{item.examId}, #{item.examName},
+            #{item.createTime}, #{item.createPeople}, #{item.startTime},
+            #{item.endTime}, #{item.grade}, #{item.department},
+            #{item.major}, #{item.subject}, #{item.className},
+            #{item.electiv})
+        </foreach>
+
+
+    </insert>
+
 
     <select id="getTeacherExamAll" resultType="com.example.demo.entity.exam.Exam">
         select id,
@@ -66,7 +84,6 @@
         where createPeople = #{userId}
         order by startTime
     </select>
-
 
     <select id="getTeacherExamRelative" resultType="com.example.demo.entity.exam.Exam">
         select id,
@@ -96,7 +113,15 @@
     <select id="getExamByExamId" resultType="com.example.demo.entity.exam.Exam">
         select *
         from `exam`
-        where examId = #{examId}
-        limit 1
+        where examId = #{examId} limit 1
     </select>
+
+    <select id="getElective" resultType="java.lang.String">
+        select studentId
+        from `elective`
+        where grade = #{grade}
+          and elective = #{elective}
+    </select>
+
+
 </mapper>

@@ -34,4 +34,20 @@ public class ExamStudentServiceImpl implements ExamStudentService {
 
         return exam;
     }
+
+    @Override
+    public Object getExamAll(String userId) {
+
+        Student user = studentDao.getById(userId);
+
+        ExamStu stu = ExamStu.builder()
+                .userId(userId)
+                .build();
+
+//        log.info(stu.toString());
+
+        List<ExamStu> exam = studentDao.getExam(stu);
+
+        return exam;
+    }
 }

@@ -24,9 +24,18 @@ public class ExamStudentController {
             return Result.ResultSuccess(examStudentService.getExam(userId));
         } catch (Exception e) {
             e.printStackTrace();
+            return Result.ResultErr(e,"学生获取试卷失败！");
         }
-        return null;
     }
 
+    @GetMapping("/all/{userId}")
+    public Object getExamAll(@PathVariable String userId) {
 
+        try {
+            return Result.ResultSuccess(examStudentService.getExamAll(userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.ResultErr(e,"学生获取试卷失败！");
+        }
+    }
 }

@@ -37,4 +37,6 @@ public interface ExamDetailDao {
     List<Exam> getExam(Exam exam);
 
     List<Exam> getExamDepartment(Exam exam);
+
+    List<Select> getSelect(Select select);
 }

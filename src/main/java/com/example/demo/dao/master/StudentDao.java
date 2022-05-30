@@ -24,4 +24,6 @@ public interface StudentDao {
 
 
     List<ExamStu> getExam(ExamStu examStu);
+
+    List<String> getStudentList(Student student);
 }

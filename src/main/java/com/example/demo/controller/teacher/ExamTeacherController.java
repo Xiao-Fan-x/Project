@@ -39,8 +39,12 @@ public class ExamTeacherController {
     @PostMapping("/send/{examId}")
     public Object sendExam(@PathVariable Integer examId) {
 
-        examTeacherService.sendExam(examId);
-        return null;
+        try {
+            return Result.ResultSuccess(examTeacherService.sendExam(examId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  Result.ResultErr(e,"");
+        }
     }
 
 

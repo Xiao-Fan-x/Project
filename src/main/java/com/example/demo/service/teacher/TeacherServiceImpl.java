@@ -3,8 +3,10 @@ package com.example.demo.service.teacher;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.click.ExamDetailDao;
+import com.example.demo.dao.master.ExamDao;
 import com.example.demo.dao.master.StudentDao;
 import com.example.demo.entity.exam.Exam;
+import com.example.demo.entity.exam.Select;
 import com.example.demo.entity.roles.Teacher;
 import com.example.demo.service.teacher.impl.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     private StudentDao studentDao;
+
+    @Autowired
+    private ExamDao examDao;
+
 
 
     @Override
@@ -70,5 +76,13 @@ public class TeacherServiceImpl implements TeacherService {
         res.put("examDep",examDep);
 
         return res;
+    }
+
+    @Override
+    public Object getSelect(Select select) {
+
+        List<Select> list = examDetailDao.getSelect(select);
+
+        return list;
     }
 }

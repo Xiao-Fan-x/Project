@@ -160,4 +160,22 @@
         </where>
     </select>
 
+    <select id="getSelect" resultType="com.example.demo.entity.exam.Select">
+        select id, detail, pointA, pointB,
+        pointC, pointD, answer, reply,
+        grade, department, major, subject
+        from `select`
+        <where>
+            <if test="department != null and department != ''">
+                department = #{department}
+            </if>
+            <if test="major != null and major != ''">
+                major = #{major}
+            </if>
+            <if test="subject != null and subject != ''">
+                subject = #{subject}
+            </if>
+        </where>
+        limit 1,10
+    </select>
 </mapper>

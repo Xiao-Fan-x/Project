@@ -1,8 +1,12 @@
 package com.example.demo.service.teacher;
 
 import com.example.demo.dao.master.ExamDao;
+import com.example.demo.dao.master.StudentDao;
 import com.example.demo.dao.master.TeacherDao;
+import com.example.demo.entity.Elective;
+import com.example.demo.entity.ExamStu;
 import com.example.demo.entity.exam.Exam;
+import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.Teacher;
 import com.example.demo.service.teacher.impl.ExamTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,9 @@ public class ExamTeacherServiceImpl implements ExamTeacherService {
 
     @Autowired
     private TeacherDao teacherDao;
+
+    @Autowired
+    private StudentDao studentDao;
 
     @Override
     public Object getTeacherExamAll(String userId) {
@@ -59,16 +66,66 @@ public class ExamTeacherServiceImpl implements ExamTeacherService {
     public Object sendExam(Integer examId) {
 
         Exam exam = examDao.getExamByExamId(examId);
+//        List list = new ArrayList(11);
 
-        List list = new ArrayList(11);
+        if (exam.getElective() != null && "".equals(exam.getElective())) {
+            Elective elective = Elective.builder()
+                    .grade(exam.getGrade())
+                    .elective(exam.getElective())
+                    .build();
 
-        if (exam.getElective() != null && "".equals(exam.getElective())){
+            List<String> stuList = examDao.getElective(elective);
+//            ExamStu examStu;
+            List<ExamStu> insert = new ArrayList<>();
+            stuList.stream().forEach(e -> {
+                insert.add(ExamStu.builder()
+                        .userId(e)
+                        .examId(exam.getId())
+                        .examName(exam.getExamName())
+                        .createTime(exam.getCreateTime())
+                        .createPeople(exam.getCreatePeople())
+                        .startTime(exam.getStartTime())
+                        .endTime(exam.getEndTime())
+                        .grade(exam.getGrade())
+                        .department(exam.getDepartment())
+                        .major(exam.getMajor())
+                        .subject(exam.getSubject())
+                        .className(exam.getClassName())
+                        .elective(exam.getElective())
+                        .build());
+            });
 
+           return examDao.sendExam(insert);
+        }else {
 
+            Student student = Student.builder()
+                    .grade(exam.getGrade())
+                    .department(exam.getDepartment())
+                    .major(exam.getMajor())
+                    .className(exam.getClassName())
+                    .build();
+            List<String> stuList = studentDao.getStudentList(student);
+
+            List<ExamStu> insert = new ArrayList<>();
+            stuList.stream().forEach(e -> {
+                insert.add(ExamStu.builder()
+                        .userId(e)
+                        .examId(exam.getId())
+                        .examName(exam.getExamName())
+                        .createTime(exam.getCreateTime())
+                        .createPeople(exam.getCreatePeople())
+                        .startTime(exam.getStartTime())
+                        .endTime(exam.getEndTime())
+                        .grade(exam.getGrade())
+                        .department(exam.getDepartment())
+                        .major(exam.getMajor())
+                        .subject(exam.getSubject())
+                        .className(exam.getClassName())
+                        .elective(exam.getElective())
+                        .build());
+            });
+            return examDao.sendExam(insert);
         }
-
-
-            return null;
 
     }
 }

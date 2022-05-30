@@ -1,5 +1,7 @@
 package com.example.demo.dao.master;
 
+import com.example.demo.entity.Elective;
+import com.example.demo.entity.ExamStu;
 import com.example.demo.entity.exam.Exam;
 import com.example.demo.entity.roles.Teacher;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,4 +19,9 @@ public interface ExamDao {
     Boolean createExam(Exam exam);
 
     Exam getExamByExamId(@Param("examId") Integer examId);
+
+    List<String> getElective(Elective elective);
+
+
+    Boolean sendExam(List<ExamStu> insert);
 }

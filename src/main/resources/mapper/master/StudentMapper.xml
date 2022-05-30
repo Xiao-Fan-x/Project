@@ -49,9 +49,9 @@
         <if test="major != '' and major != null">
             major = #{major}
         </if>
-<!--        <if test="className != '' and className != null">-->
-<!--            className = #{className}-->
-<!--        </if>-->
+        <!--        <if test="className != '' and className != null">-->
+        <!--            className = #{className}-->
+        <!--        </if>-->
     </select>
 
     <select id="getById" resultType="com.example.demo.entity.roles.Student">
@@ -64,7 +64,25 @@
     <select id="getExam" resultType="com.example.demo.entity.ExamStu">
         select * from `examStu`
         where userId = #{userId}
-        and startTime <![CDATA[>=]]]> #{startTime}
+        <if test="startTime != null and startTime != ''">
+            and startTime <![CDATA[>=]]]> #{startTime}
+        </if>
+        order by startTime
+    </select>
+
+    <select id="getStudentList" resultType="java.lang.String">
+        select userId from
+        `student`
+        where grade = #{grade}
+        <if test="department != null and department != ''">
+            and department = #{department}
+        </if>
+        <if test="major != null and major != ''">
+            and major = #{major}
+        </if>
+        <if test="className != null and className != ''">
+            and className = #{className}
+        </if>
     </select>
 
 

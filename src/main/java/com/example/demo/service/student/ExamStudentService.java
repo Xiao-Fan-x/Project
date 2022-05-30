@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ExamStudentService {
 
-    public Object getExam(String userId);
+    Object getExam(String userId);
 
+    Object getExamAll(String userId);
 }

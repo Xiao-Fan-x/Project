@@ -15,7 +15,7 @@ public class ExamStu {
     private String userId;
 
     private Integer examId;
-
+    private String examName;
     private LocalDateTime createTime;
 
     private String createPeople;
@@ -28,6 +28,7 @@ public class ExamStu {
     private String major;
     private String subject;
     private String className;
+    private String elective;
 
     @Override
     public String toString() {
@@ -35,6 +36,7 @@ public class ExamStu {
                 "id=" + id +
                 ", userId='" + userId + '\'' +
                 ", examId=" + examId +
+                ", examName='" + examName + '\'' +
                 ", createTime=" + createTime +
                 ", createPeople='" + createPeople + '\'' +
                 ", startTime=" + startTime +
@@ -44,6 +46,8 @@ public class ExamStu {
                 ", major='" + major + '\'' +
                 ", subject='" + subject + '\'' +
                 ", className='" + className + '\'' +
+                ", elective='" + elective + '\'' +
                 '}';
     }
+
 }
