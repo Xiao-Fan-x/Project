@@ -6,10 +6,10 @@
 <mapper namespace="com.example.demo.dao.master.ExamDao">
     <insert id="createExam">
         insert into `exam`
-        (id, examName, createTime, createPeople, startTime,
+        (examName, createTime, createPeople, startTime,
          endTime, duration, grade, elective
             , department, major, subject, className)
-        values (#{id}, #{examName},
+        values (#{examName},
                 #{createTime}, #{createPeople}, #{startTime}, #{endTime},
                 #{duration}, #{grade}, #{elective},
                 #{department}, #{major}, #{subject}, #{className})
@@ -20,14 +20,14 @@
         (userId, examId, examName,
         createTime, createPeople, startTime,
         endTime, grade, department,
-        major, subject, className, electiv)
+        major, subject, className, elective)
         values
         <foreach collection="list" item="item" separator="," index="index">
             (#{item.userId}, #{item.examId}, #{item.examName},
             #{item.createTime}, #{item.createPeople}, #{item.startTime},
             #{item.endTime}, #{item.grade}, #{item.department},
             #{item.major}, #{item.subject}, #{item.className},
-            #{item.electiv})
+            #{item.elective})
         </foreach>
 
 
@@ -35,22 +35,22 @@
 
 
     <!-- 通用查询映射结果 -->
-<!--    <resultMap id="BaseResultMap" type="com.example.demo.entity.ExamMsg">-->
-<!--        <id column="examId" property="examId" />-->
-<!--        &lt;!&ndash; 这里显示指定typeHandler属性值 &ndash;&gt;-->
-<!--        <result column="selectMsg" property="selectMsg"-->
-<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
-<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
-<!--        <result column="blankMsg" property="blankMsg"-->
-<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
-<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
-<!--        <result column="judgeMsg" property="judgeMsg"-->
-<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
-<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
-<!--        <result column="essayMsg" property="essayMsg"-->
-<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
-<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
-<!--    </resultMap>-->
+    <!--    <resultMap id="BaseResultMap" type="com.example.demo.entity.ExamMsg">-->
+    <!--        <id column="examId" property="examId" />-->
+    <!--        &lt;!&ndash; 这里显示指定typeHandler属性值 &ndash;&gt;-->
+    <!--        <result column="selectMsg" property="selectMsg"-->
+    <!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+    <!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+    <!--        <result column="blankMsg" property="blankMsg"-->
+    <!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+    <!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+    <!--        <result column="judgeMsg" property="judgeMsg"-->
+    <!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+    <!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+    <!--        <result column="essayMsg" property="essayMsg"-->
+    <!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+    <!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+    <!--    </resultMap>-->
 
     <insert id="determine">
         insert into `examMsg`
@@ -65,6 +65,7 @@
                examName,
                startTime,
                endTime,
+               status,
                grade,
                department,
                major,
@@ -80,6 +81,8 @@
         select id,
         examName,
         startTime,
+        endTime,
+        status,
         grade,
         department,
         major,
@@ -89,17 +92,16 @@
         from `exam`
         <where>
             <if test="grade != null and grade != ''">
-                grade = #{grade}
+                and grade = #{grade}
             </if>
             <if test="department != null and department != ''">
-                department = #{department}
+                and department = #{department}
             </if>
             <if test="major != null and major != ''">
-                major = #{major}
+                and major = #{major}
             </if>
         </where>
         order by startTime
-
     </select>
     <select id="getExamByExamId" resultType="com.example.demo.entity.exam.Exam">
         select *

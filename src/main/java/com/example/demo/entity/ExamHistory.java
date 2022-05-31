@@ -1,10 +1,15 @@
 package com.example.demo.entity;
 
 
-import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExamHistory {
 
     private Integer id;
@@ -15,13 +20,13 @@ public class ExamHistory {
 
     private Double score;
 
-    private JSON selectMsg;
+    private String selectMsg;
 
-    private JSON blankMsg;
+    private String blankMsg;
 
-    private JSON judgeMsg;
+    private String judgeMsg;
 
-    private JSON essayMsg;
+    private String essayMsg;
 
     @Override
     public String toString() {

@@ -1,5 +1,6 @@
 package com.example.demo.dao.master;
 
+import com.example.demo.entity.ExamHistory;
 import com.example.demo.entity.ExamMsg;
 import com.example.demo.entity.ExamStu;
 import com.example.demo.entity.roles.Student;
@@ -29,4 +30,6 @@ public interface StudentDao {
     List<String> getStudentList(Student student);
 
     ExamMsg getExamMsg(@Param("examId") Integer examId);
+
+    Boolean endExam(ExamHistory examHistory);
 }

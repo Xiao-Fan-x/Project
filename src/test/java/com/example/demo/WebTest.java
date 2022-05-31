@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
@@ -25,7 +24,7 @@ import java.io.IOException;
  **/
 @Slf4j
 @MapperScan("com.example.demo.mapper")
-@SpringBootTest
+//@SpringBootTest
 public class WebTest {
     private final String restEndpointUrl = "tcp://127.0.0.1:2375";
     String Path = "/home/xiaofan/Desktop/";
@@ -54,7 +53,7 @@ public class WebTest {
                 .build();
 
         ContainerConfig containerConfig = ContainerConfig.builder()
-                .image("alpine:v5")
+                .image("python:3.8-alpine3.16")
                 .attachStdin(true).tty(true)
                 .attachStdout(true).openStdin(true)
                 .hostConfig(hostConfig).workingDir("/temp/").cmd("sh").build();
@@ -69,8 +68,8 @@ public class WebTest {
 //        command[0] = "javac" + " Main.java";
 //        command[1] = "java" + "Main";
 //        String[] command = {"g++","-o","hello","hello.cpp"};
-//        String[] command = {"python3","demo.py"};
-        String[] command = {"java"+" Main"};
+        String[] command = {"python3","demo.py"};
+//        String[] command = {"java"+" Main"};
 
         ExecCreation execCreation = client.execCreate(
                 id, command, DockerClient.ExecCreateParam.attachStdout(),
@@ -81,5 +80,6 @@ public class WebTest {
         String execOutput = output.readFully();
 
         System.out.println(execOutput);
+//        client.stopContainer();
     }
 }

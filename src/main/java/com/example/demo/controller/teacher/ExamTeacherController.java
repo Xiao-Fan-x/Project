@@ -26,7 +26,7 @@ public class ExamTeacherController {
 
     @PostMapping("/create")
     public Object create(@RequestBody Exam exam) {
-
+        System.out.println(exam.toString());
         try {
             if (examTeacherService.createExam(exam)) {
                 return Result.ResultSuccess(true);

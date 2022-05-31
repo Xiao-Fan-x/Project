@@ -1,5 +1,6 @@
 package com.example.demo.service.teacher;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.dao.click.ExamDetailDao;
 import com.example.demo.dao.master.ExamDao;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,8 +61,8 @@ public class ExamTeacherServiceImpl implements ExamTeacherService {
     public Boolean createExam(Exam exam) {
 
         log.info(exam.toString());
-        String examId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHH"));
-        exam.setId(Integer.valueOf(examId));
+//        String examId = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss"));
+//        exam.setId(Integer.valueOf(examId));
         exam.setCreateTime(LocalDateTime.now());
 
 //        exam.setDuration((int) Duration.between(exam.getEndTime(), exam.getStartTime()).toMinutes());
@@ -76,7 +76,7 @@ public class ExamTeacherServiceImpl implements ExamTeacherService {
         Exam exam = examDao.getExamByExamId(examId);
 //        List list = new ArrayList(11);
 
-        if (exam.getElective() != null && "".equals(exam.getElective())) {
+        if (exam.getElective() != null &&  !"".equals(exam.getElective())) {
             Elective elective = Elective.builder()
                     .grade(exam.getGrade())
                     .elective(exam.getElective())
@@ -134,7 +134,6 @@ public class ExamTeacherServiceImpl implements ExamTeacherService {
             });
             return examDao.sendExam(insert);
         }
-
     }
 
     @Override
@@ -192,12 +191,19 @@ public class ExamTeacherServiceImpl implements ExamTeacherService {
 
         ExamMsg examMsg = ExamMsg.builder()
                 .examId(id)
-                .selectMsg(selectList.toString())
-                .blankMsg(blankList.toString())
-                .judgeMsg(judgeList.toString())
-                .essayMsg(essayList.toString())
+                .selectMsg(JSON.toJSONString(selectList))
+                .blankMsg(JSON.toJSONString(blankList))
+                .judgeMsg(JSON.toJSONString(judgeList))
+                .essayMsg(JSON.toJSONString(essayList))
                 .build();
 
+//        ExamMsg examMsg = ExamMsg.builder()
+//                .examId(id)
+//                .selectMsg(selectList.toString())
+//                .blankMsg(blankList.toString())
+//                .judgeMsg(judgeList.toString())
+//                .essayMsg(essayList.toString())
+//                .build();
         examDao.determine(examMsg);
         return true;
     }

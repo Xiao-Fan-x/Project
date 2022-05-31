@@ -32,6 +32,11 @@
             #{item.grade})
         </foreach>
     </insert>
+    <insert id="endExam">
+        insert into `examHistory`
+            (examId, userId, score, selectMsg, blankMsg, judgeMsg, essayMsg)
+        values (#{examId}, #{userId}, #{score}, #{selectMsg}, #{blankMsg}, #{judgeMsg}, #{essayMsg})
+    </insert>
 
 
     <select id="getByUserId" resultType="com.example.demo.entity.roles.Student">
@@ -62,7 +67,8 @@
     </select>
 
     <select id="getExam" resultType="com.example.demo.entity.ExamStu">
-        select * from `examStu`
+        select *
+        from `examStu`
         where userId = #{userId}
 
         order by startTime
@@ -71,19 +77,24 @@
     <select id="getStudentList" resultType="java.lang.String">
         select userId from
         `student`
-        where grade = #{grade}
-        <if test="department != null and department != ''">
-            and department = #{department}
-        </if>
-        <if test="major != null and major != ''">
-            and major = #{major}
-        </if>
-        <if test="className != null and className != ''">
-            and className = #{className}
-        </if>
+        <where>
+            <if test="grade != null and grade != ''">
+                and grade = #{grade}
+            </if>
+            <if test="department != null and department != ''">
+                and department = #{department}
+            </if>
+            <if test="major != null and major != ''">
+                and major = #{major}
+            </if>
+            <if test="className != null and className != ''">
+                and className = #{className}
+            </if>
+        </where>
     </select>
     <select id="getExamMsg" resultType="com.example.demo.entity.ExamMsg">
-        select * from `examMsg`
+        select *
+        from `examMsg`
         where examId = #{examId}
     </select>
 
