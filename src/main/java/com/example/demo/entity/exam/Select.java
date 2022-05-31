@@ -1,10 +1,18 @@
 package com.example.demo.entity.exam;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Data
-public class Select {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Select extends ExamTest implements Serializable {
 
     private String id;
     private String detail;

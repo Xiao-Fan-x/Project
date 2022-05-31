@@ -1,6 +1,7 @@
 package com.example.demo.dao.master;
 
 import com.example.demo.entity.Elective;
+import com.example.demo.entity.ExamMsg;
 import com.example.demo.entity.ExamStu;
 import com.example.demo.entity.exam.Exam;
 import com.example.demo.entity.roles.Teacher;
@@ -24,4 +25,6 @@ public interface ExamDao {
 
 
     Boolean sendExam(List<ExamStu> insert);
+
+    Boolean determine(ExamMsg examMsg);
 }

@@ -2,8 +2,8 @@ package com.example.demo.dao.click;
 
 
 import com.example.demo.entity.exam.*;
-import com.example.demo.entity.roles.Teacher;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,13 +25,13 @@ public interface ExamDetailDao {
 
 
 
-    Integer getSelectNum(Teacher teacher);
+    Integer getSelectNum(ExamTest examTest);
 
-    Integer getBlankNum(Teacher teacher);
+    Integer getBlankNum(ExamTest examTest);
 
-    Integer getJudgeNum(Teacher teacher);
+    Integer getJudgeNum(ExamTest examTest);
 
-    Integer getEssayNum(Teacher teacher);
+    Integer getEssayNum(ExamTest examTest);
 
 
     List<Exam> getExam(Exam exam);
@@ -39,4 +39,21 @@ public interface ExamDetailDao {
     List<Exam> getExamDepartment(Exam exam);
 
     List<Select> getSelect(Select select);
+
+    List<Select> getBlank(Blank blank);
+
+    List<Select> getJudge(Judge judge);
+
+    List<Select> getEssay(Essay essay);
+
+    Boolean deleteBlank(@Param("id") String id);
+
+    List<Select> getSelectByList(List<String> select);
+
+
+    List<Blank> getBlankByList(List<String> blank);
+
+    List<Judge> getJudgeByList(List<String> judge);
+
+    List<Essay> getEssayByList(List<String> essay);
 }

@@ -9,4 +9,6 @@ public interface ExamStudentService {
     Object getExam(String userId);
 
     Object getExamAll(String userId);
+
+    Object getExamMsg(Integer examId);
 }

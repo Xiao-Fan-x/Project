@@ -1,5 +1,6 @@
 package com.example.demo.dao.master;
 
+import com.example.demo.entity.ExamMsg;
 import com.example.demo.entity.ExamStu;
 import com.example.demo.entity.roles.Student;
 import com.example.demo.entity.roles.User;
@@ -26,4 +27,6 @@ public interface StudentDao {
     List<ExamStu> getExam(ExamStu examStu);
 
     List<String> getStudentList(Student student);
+
+    ExamMsg getExamMsg(@Param("examId") Integer examId);
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controller.teacher;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.entity.exam.Exam;
 import com.example.demo.service.teacher.impl.ExamTeacherService;
 import com.example.demo.util.Result;
@@ -36,14 +37,30 @@ public class ExamTeacherController {
         }
     }
 
-    @PostMapping("/send/{examId}")
+    @GetMapping("/selectQuestion/{id}")
+    public Object selectQues(@PathVariable Integer id) {
+
+        try {
+            return Result.ResultSuccess(examTeacherService.selectQues(id));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/determine")
+    public Boolean determine(@RequestBody JSONObject jsonObject){
+
+        return examTeacherService.determine(jsonObject);
+    }
+
+    @GetMapping("/send/{examId}")
     public Object sendExam(@PathVariable Integer examId) {
 
         try {
             return Result.ResultSuccess(examTeacherService.sendExam(examId));
         } catch (Exception e) {
             e.printStackTrace();
-            return  Result.ResultErr(e,"");
+            return Result.ResultErr(e, "");
         }
     }
 

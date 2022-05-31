@@ -9,4 +9,10 @@
         select * from `class`
 
     </select>
+    <select id="getElectiveStudent" resultType="java.lang.String">
+        select studentId
+        from  `elective`
+        where elective = #{elective}
+
+    </select>
 </mapper>

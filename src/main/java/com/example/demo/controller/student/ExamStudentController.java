@@ -17,6 +17,11 @@ public class ExamStudentController {
     @Autowired
     private ExamStudentService examStudentService;
 
+    /**
+     * 学生获取考核数据
+     * @param userId
+     * @return
+     */
     @GetMapping("/{userId}")
     public Object getExam(@PathVariable String userId) {
 
@@ -37,5 +42,15 @@ public class ExamStudentController {
             e.printStackTrace();
             return Result.ResultErr(e,"学生获取试卷失败！");
         }
+    }
+
+    @GetMapping("/getExam/{examId}")
+    public Object getExamMsg(@PathVariable Integer examId){
+        try {
+            return  Result.ResultSuccess(examStudentService.getExamMsg(examId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

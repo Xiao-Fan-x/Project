@@ -64,9 +64,7 @@
     <select id="getExam" resultType="com.example.demo.entity.ExamStu">
         select * from `examStu`
         where userId = #{userId}
-        <if test="startTime != null and startTime != ''">
-            and startTime <![CDATA[>=]]]> #{startTime}
-        </if>
+
         order by startTime
     </select>
 
@@ -83,6 +81,10 @@
         <if test="className != null and className != ''">
             and className = #{className}
         </if>
+    </select>
+    <select id="getExamMsg" resultType="com.example.demo.entity.ExamMsg">
+        select * from `examMsg`
+        where examId = #{examId}
     </select>
 
 

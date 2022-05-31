@@ -7,48 +7,12 @@
     <insert id="createExam">
         insert into `exam`
         (id, examName, createTime, createPeople, startTime,
-        endTime, duration, grade
-        <choose>
-            <when test="elective != null and elective != ''">
-                ,elective
-            </when>
-            <otherwise>
-                ,department
-                <if test="major != null and major != ''">
-                    ,major
-                </if>
-                <if test="subject != null and subject != ''">
-                    ,subject
-                </if>
-                <if test="className != null and className != ''">
-                    ,className
-                </if>
-            </otherwise>
-        </choose>
-        )
-        values (
-        #{id}, #{examName},
-        #{createTime}, #{createPeople},
-        #{startTime}, #{endTime},
-        #{uration}, #{grade}
-        <choose>
-            <when test="elective != null and elective != ''">
-                #{elective}
-            </when>
-            <otherwise>
-                ,#{department}
-                <if test="major != null and major != ''">
-                    ,#{major}
-                </if>
-                <if test="subject != null and subject != ''">
-                    ,#{subject}
-                </if>
-                <if test="className != null and className != ''">
-                    ,#{className}
-                </if>
-            </otherwise>
-        </choose>
-        )
+         endTime, duration, grade, elective
+            , department, major, subject, className)
+        values (#{id}, #{examName},
+                #{createTime}, #{createPeople}, #{startTime}, #{endTime},
+                #{duration}, #{grade}, #{elective},
+                #{department}, #{major}, #{subject}, #{className})
     </insert>
 
     <insert id="sendExam">
@@ -70,10 +34,37 @@
     </insert>
 
 
+    <!-- 通用查询映射结果 -->
+<!--    <resultMap id="BaseResultMap" type="com.example.demo.entity.ExamMsg">-->
+<!--        <id column="examId" property="examId" />-->
+<!--        &lt;!&ndash; 这里显示指定typeHandler属性值 &ndash;&gt;-->
+<!--        <result column="selectMsg" property="selectMsg"-->
+<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+<!--        <result column="blankMsg" property="blankMsg"-->
+<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+<!--        <result column="judgeMsg" property="judgeMsg"-->
+<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+<!--        <result column="essayMsg" property="essayMsg"-->
+<!--                jdbcType="JAVA_OBJECT" javaType="java.util.List"-->
+<!--                typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>-->
+<!--    </resultMap>-->
+
+    <insert id="determine">
+        insert into `examMsg`
+            (examId, selectMsg, blankMsg, judgeMsg, essayMsg)
+        values (#{examId}, #{selectMsg}, #{blankMsg},
+                #{judgeMsg}, #{essayMsg})
+    </insert>
+
+
     <select id="getTeacherExamAll" resultType="com.example.demo.entity.exam.Exam">
         select id,
                examName,
                startTime,
+               endTime,
                grade,
                department,
                major,
@@ -113,7 +104,7 @@
     <select id="getExamByExamId" resultType="com.example.demo.entity.exam.Exam">
         select *
         from `exam`
-        where examId = #{examId} limit 1
+        where id = #{examId} limit 1
     </select>
 
     <select id="getElective" resultType="java.lang.String">

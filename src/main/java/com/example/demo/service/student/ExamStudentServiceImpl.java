@@ -2,7 +2,9 @@ package com.example.demo.service.student;
 
 
 import com.example.demo.dao.master.StudentDao;
+import com.example.demo.entity.ExamMsg;
 import com.example.demo.entity.ExamStu;
+import com.example.demo.entity.exam.Exam;
 import com.example.demo.entity.roles.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +51,21 @@ public class ExamStudentServiceImpl implements ExamStudentService {
         List<ExamStu> exam = studentDao.getExam(stu);
 
         return exam;
+    }
+
+    @Override
+    public Object getExamMsg(Integer examId) {
+
+
+        ExamMsg examMsg = studentDao.getExamMsg(examId);
+
+
+          examMsg.getSelectMsg();
+        examMsg.getBlankMsg();
+        examMsg.getJudgeMsg();
+        examMsg.getEssayMsg();
+
+
+
     }
 }
