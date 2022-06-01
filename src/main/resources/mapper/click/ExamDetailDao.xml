@@ -185,7 +185,7 @@
 
     </select>
 
-    <select id="getBlank" resultType="com.example.demo.entity.exam.Select">
+    <select id="getBlank" resultType="com.example.demo.entity.exam.Blank">
         select id, detail, answer,
         department, major, subject
         from `blank`
@@ -204,7 +204,7 @@
             limit #{page},10
         </if>
     </select>
-    <select id="getJudge" resultType="com.example.demo.entity.exam.Select">
+    <select id="getJudge" resultType="com.example.demo.entity.exam.Judge">
         select id, detail, answer,
         pointOne, pointTwo,department, major, subject
         from `judge`
@@ -223,7 +223,7 @@
             limit #{page},10
         </if>
     </select>
-    <select id="getEssay" resultType="com.example.demo.entity.exam.Select">
+    <select id="getEssay" resultType="com.example.demo.entity.exam.Essay">
         select id, detail, pointOne,
         pointTwo, pointThree, pointFour,
         answer, department,major,

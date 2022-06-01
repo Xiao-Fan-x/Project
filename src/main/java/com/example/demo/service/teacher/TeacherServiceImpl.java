@@ -101,12 +101,11 @@ public class TeacherServiceImpl implements TeacherService {
         Map res = new HashMap(4);
         int page = blank.getPage();
         blank.setPage((page - 1) * 10);
-        List<Select> list = examDetailDao.getBlank(blank);
+        List<Blank> list = examDetailDao.getBlank(blank);
         Integer selectNum = examDetailDao.getBlankNum(blank);
         res.put("list", list);
         res.put("total", selectNum);
         return res;
-
     }
 
     @Override
@@ -114,7 +113,7 @@ public class TeacherServiceImpl implements TeacherService {
         Map res = new HashMap(4);
         int page = judge.getPage();
         judge.setPage((page - 1) * 10);
-        List<Select> list = examDetailDao.getJudge(judge);
+        List<Judge> list = examDetailDao.getJudge(judge);
         Integer selectNum = examDetailDao.getSelectNum(judge);
         res.put("list", list);
         res.put("total", selectNum);
@@ -126,7 +125,7 @@ public class TeacherServiceImpl implements TeacherService {
         Map res = new HashMap(4);
         int page = essay.getPage();
         essay.setPage((page - 1) * 10);
-        List<Select> list = examDetailDao.getEssay(essay);
+        List<Essay> list = examDetailDao.getEssay(essay);
         Integer selectNum = examDetailDao.getSelectNum(essay);
         res.put("list", list);
         res.put("total", selectNum);

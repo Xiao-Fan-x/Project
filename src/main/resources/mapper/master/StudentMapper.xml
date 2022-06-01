@@ -38,6 +38,29 @@
         values (#{examId}, #{userId}, #{score}, #{selectMsg}, #{blankMsg}, #{judgeMsg}, #{essayMsg})
     </insert>
 
+    <update id="update">
+        update `student`
+        set userId     = #{userId},
+            userName   = #{userName},
+            gender     =#{gender},
+            password   =#{password},
+            phone      =#{phone},
+            registTime =#{registTime},
+            `role`     =#{role},
+            department =#{department},
+            major      =#{major},
+            className  =#{className},
+            grade      =#{grade},
+            where id = #{id}
+
+    </update>
+
+    <delete id="delete">
+        delete
+        from `student`
+        where userId = #{userId}
+    </delete>
+
 
     <select id="getByUserId" resultType="com.example.demo.entity.roles.Student">
         select *
@@ -74,7 +97,7 @@
         order by startTime
     </select>
 
-    <select id="getStudentList" resultType="java.lang.String">
+    <select id="getStudentUserIdList" resultType="java.lang.String">
         select userId from
         `student`
         <where>
@@ -96,6 +119,27 @@
         select *
         from `examMsg`
         where examId = #{examId}
+    </select>
+    <select id="getStudentList" resultType="com.example.demo.entity.roles.Student">
+        select * from
+        `student`
+        <where>
+            <if test="grade != null and grade != ''">
+                and grade = #{grade}
+            </if>
+            <if test="department != null and department != ''">
+                and department = #{department}
+            </if>
+            <if test="major != null and major != ''">
+                and major = #{major}
+            </if>
+            <if test="className != null and className != ''">
+                and className = #{className}
+            </if>
+            <if test="userName != null and userName != ''">
+                and userName like concat('%',#{userName},'%')
+            </if>
+        </where>
     </select>
 
 

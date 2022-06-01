@@ -40,11 +40,11 @@ public interface ExamDetailDao {
 
     List<Select> getSelect(Select select);
 
-    List<Select> getBlank(Blank blank);
+    List<Blank> getBlank(Blank blank);
 
-    List<Select> getJudge(Judge judge);
+    List<Judge> getJudge(Judge judge);
 
-    List<Select> getEssay(Essay essay);
+    List<Essay> getEssay(Essay essay);
 
     Boolean deleteBlank(@Param("id") String id);
 

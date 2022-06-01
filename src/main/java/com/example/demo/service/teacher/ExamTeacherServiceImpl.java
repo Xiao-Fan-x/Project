@@ -112,7 +112,7 @@ public class ExamTeacherServiceImpl implements ExamTeacherService {
                     .major(exam.getMajor())
                     .className(exam.getClassName())
                     .build();
-            List<String> stuList = studentDao.getStudentList(student);
+            List<String> stuList = studentDao.getStudentUserIdList(student);
 
             List<ExamStu> insert = new ArrayList<>();
             stuList.stream().forEach(e -> {

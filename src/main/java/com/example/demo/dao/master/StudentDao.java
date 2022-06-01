@@ -27,9 +27,16 @@ public interface StudentDao {
 
     List<ExamStu> getExam(ExamStu examStu);
 
-    List<String> getStudentList(Student student);
+    List<String> getStudentUserIdList(Student student);
 
     ExamMsg getExamMsg(@Param("examId") Integer examId);
 
     Boolean endExam(ExamHistory examHistory);
+
+    List<Student> getStudentList(Student student);
+
+    Boolean delete(@Param("userId") String userId);
+
+
+    Boolean update(Student student);
 }

@@ -14,6 +14,27 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student extends User {
+    private Integer id;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", registTime=" + registTime +
+                ", role='" + role + '\'' +
+                ", roles=" + roles +
+                ", department='" + department + '\'' +
+                ", major='" + major + '\'' +
+                ", className='" + className + '\'' +
+                ", grade='" + grade + '\'' +
+                ", page=" + page +
+                '}';
+    }
 
     private String userId;//工号
     private String userName;    //姓名
@@ -28,22 +49,6 @@ public class Student extends User {
     private String className;   //班级
     private String grade;       //年级
 
+    private Integer page;
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "userId='" + userId + '\'' +
-                ", userName='" + userName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", registTime=" + registTime +
-                ", role='" + role + '\'' +
-                ", roles=" + roles +
-                ", department='" + department + '\'' +
-                ", major='" + major + '\'' +
-                ", className='" + className + '\'' +
-                ", grade='" + grade + '\'' +
-                '}';
-    }
 }
