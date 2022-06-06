@@ -13,6 +13,8 @@ import com.example.demo.entity.exam.Essay;
 import com.example.demo.entity.exam.Judge;
 import com.example.demo.entity.exam.Select;
 import com.example.demo.entity.roles.Student;
+import com.example.demo.util.SimilarUtils;
+import com.hankcs.hanlp.HanLP;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,7 +74,7 @@ public class ExamStudentServiceImpl implements ExamStudentService {
 
 //        String parse = JSON.parse(examMsg.getSelectMsg());
 
-        log.info(examMsg.toString());
+//        log.info(examMsg.toString());
 
         List<Select> selects = JSON.parseArray(examMsg.getSelectMsg(), Select.class);
         List<Blank> blanks = JSON.parseArray(examMsg.getBlankMsg(), Blank.class);
@@ -131,14 +133,19 @@ public class ExamStudentServiceImpl implements ExamStudentService {
             }
         }
         for (int i = 0; i < essayList.size(); i++) {
-            if (essayList.get(i).getAnswer().equals(essays.get(i))) {
-                score += 10;
-            }
+            double num = 0.0;
+            String reply = essays.get(i);
+            String answer = essayList.get(i).getAnswer();
+            List<String> keywords = HanLP.extractKeyword(reply, 10);
+            List<String> answerKey = HanLP.extractKeyword(answer, 10);
+            num = answerKey.stream().filter(keywords::contains).count();
+            num += SimilarUtils.similarRete(reply, answer);
+            score += num * 5;
         }
-
+        String userId = jsonObject.getObject("userId", String.class);
         ExamHistory examHistory = ExamHistory.builder()
                 .examId(examId)
-                .userId(jsonObject.getObject("userId", String.class))
+                .userId(userId)
                 .score(score)
                 .selectMsg(JSON.toJSONString(selects))
                 .blankMsg(JSON.toJSONString(blanks))
@@ -147,6 +154,8 @@ public class ExamStudentServiceImpl implements ExamStudentService {
                 .build();
 
         studentDao.endExam(examHistory);
+
+        studentDao.putScore(score, userId);
         return true;
     }
 }

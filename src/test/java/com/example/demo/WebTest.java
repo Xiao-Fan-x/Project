@@ -16,6 +16,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * web读写案例
@@ -30,7 +32,7 @@ public class WebTest {
     String Path = "/home/xiaofan/Desktop/";
     @Autowired
     private ExamDetailDao examDetailDao;
-    
+
     //    https://github.com/spotify/docker-client/blob/master/docs/user_manual.md#troubleshooting
     @Test
     void test() throws IOException, DockerException, InterruptedException, DockerCertificateException {
@@ -52,11 +54,17 @@ public class WebTest {
                         .to("/temp/").build())
                 .build();
 
+        List<String> env = new ArrayList<String>();
+//        env.add("export JAVA_HOME=/usr/java/openjdk-8");
+//        env.add("export CLASSPATH=%JAVA_HOME%/lib:%JAVA_HOME%/jre/lib");
+//        env.add("export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin");
+
         ContainerConfig containerConfig = ContainerConfig.builder()
-                .image("python:3.8-alpine3.16")
+                .image("bitnami/java:1.8.333-debian-10-r0")
+//                .image("python:3.8-alpine3.16")
                 .attachStdin(true).tty(true)
                 .attachStdout(true).openStdin(true)
-                .hostConfig(hostConfig).workingDir("/temp/").cmd("sh").build();
+                .hostConfig(hostConfig).workingDir("/temp/").cmd("sh", "-c", "while :; do sleep 1; done").build();
 //                .cmd("sh", "-c", "while :; do sleep 1; done")
 
         ContainerCreation creation = client.createContainer(containerConfig);
@@ -68,17 +76,33 @@ public class WebTest {
 //        command[0] = "javac" + " Main.java";
 //        command[1] = "java" + "Main";
 //        String[] command = {"g++","-o","hello","hello.cpp"};
-        String[] command = {"python3","demo.py"};
-//        String[] command = {"java"+" Main"};
+//        String[] command = {"python3","demo.py"};
+//        String[] command = {"sh","-c","ls"};
+        String[] command = {"javac","Main.java"};
 
-        ExecCreation execCreation = client.execCreate(
+        ExecCreation execCreation = null;
+        try {
+            execCreation = client.execCreate(
+                    id, command, DockerClient.ExecCreateParam.attachStdout(),
+                    DockerClient.ExecCreateParam.attachStderr());
+        } catch (DockerException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            LogStream output = client.execStart(execCreation.id());
+            String execOutput = output.readFully();
+            System.out.println(execOutput);
+            output.close();
+        }
+
+        command = new String[]{"java", "Main"};
+
+        execCreation = client.execCreate(
                 id, command, DockerClient.ExecCreateParam.attachStdout(),
                 DockerClient.ExecCreateParam.attachStderr());
-
-
         LogStream output = client.execStart(execCreation.id());
         String execOutput = output.readFully();
-
         System.out.println(execOutput);
 //        client.stopContainer();
     }

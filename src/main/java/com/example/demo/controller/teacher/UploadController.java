@@ -7,6 +7,7 @@ import com.example.demo.entity.exam.Blank;
 import com.example.demo.entity.exam.Essay;
 import com.example.demo.entity.exam.Judge;
 import com.example.demo.entity.exam.Select;
+import com.example.demo.entity.roles.Student;
 import com.example.demo.service.upload.impl.StudentUpload;
 import com.example.demo.service.upload.impl.TeacherUpload;
 import com.example.demo.util.UploadBlankUtils;
@@ -213,5 +214,14 @@ public class UploadController {
         EasyExcel.write(response.getOutputStream(), Essay.class).sheet("模板").doWrite(new ArrayList<>());
     }
 
+    @GetMapping("studentTemp")
+    public void downloadStudentTemp(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode("学生模板", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), Student.class).sheet("模板").doWrite(new ArrayList<>());
+    }
 
 }

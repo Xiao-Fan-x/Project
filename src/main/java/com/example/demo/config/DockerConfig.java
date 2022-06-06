@@ -20,18 +20,11 @@ public class DockerConfig {
         return DefaultDockerClient.fromEnv().build();
     }
 
-    @Bean
-    public ContainerCreation containerCreation(DockerClient client) throws DockerException, InterruptedException {
+    @Bean(name = "python")
+    public ContainerCreation containerPython(DockerClient client) throws DockerException, InterruptedException {
 
-        HostConfig hostConfig = HostConfig.builder()
-                .appendBinds(HostConfig.Bind.from("C:\\Users\\17430\\Desktop\\demo\\code")
-                        .to("/temp/").build())
-                .build();
-        ContainerConfig containerConfig = ContainerConfig.builder()
-                .image("python:3.8-alpine3.16")
-                .attachStdin(true).tty(true)
-                .attachStdout(true).openStdin(true)
-                .hostConfig(hostConfig).workingDir("/temp/").cmd("sh").build();
+        HostConfig hostConfig = HostConfig.builder().appendBinds(HostConfig.Bind.from("C:\\Users\\17430\\Desktop\\demo\\code").to("/temp/").build()).build();
+        ContainerConfig containerConfig = ContainerConfig.builder().image("python:3.8-alpine3.16").attachStdin(true).tty(true).attachStdout(true).openStdin(true).hostConfig(hostConfig).workingDir("/temp/").cmd("sh").build();
 
 
         ContainerCreation container = client.createContainer(containerConfig);
@@ -39,5 +32,31 @@ public class DockerConfig {
 
         return container;
     }
+
+    @Bean(name = "java")
+    public ContainerCreation containerJava(DockerClient client) throws DockerException, InterruptedException {
+
+        HostConfig hostConfig = HostConfig.builder().appendBinds(HostConfig.Bind.from("C:\\Users\\17430\\Desktop\\demo\\code").to("/temp/").build()).build();
+        ContainerConfig containerConfig = ContainerConfig.builder().image("bitnami/java:1.8.333-debian-10-r0").attachStdin(true).tty(true).attachStdout(true).openStdin(true).hostConfig(hostConfig).workingDir("/temp/").cmd("sh", "-c", "while :; do sleep 1; done").build();
+
+        ContainerCreation container = client.createContainer(containerConfig);
+        client.startContainer(container.id());
+
+        return container;
+    }
+
+
+//    @Bean(name = "cpp")
+    public ContainerCreation containerCpp(DockerClient client) throws DockerException, InterruptedException {
+
+        HostConfig hostConfig = HostConfig.builder().appendBinds(HostConfig.Bind.from("C:\\Users\\17430\\Desktop\\demo\\code").to("/temp/").build()).build();
+        ContainerConfig containerConfig = ContainerConfig.builder().image("bitnami/java:1.8.333-debian-10-r0").attachStdin(true).tty(true).attachStdout(true).openStdin(true).hostConfig(hostConfig).workingDir("/temp/").cmd("sh", "-c", "while :; do sleep 1; done").build();
+
+        ContainerCreation container = client.createContainer(containerConfig);
+        client.startContainer(container.id());
+
+        return container;
+    }
+
 
 }

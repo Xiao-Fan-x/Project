@@ -7,7 +7,9 @@ import com.spotify.docker.client.LogStream;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.ContainerCreation;
 import com.spotify.docker.client.messages.ExecCreation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -15,15 +17,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
+@Slf4j
 @Service
 public class CodeServiceImpl implements CodeService {
 
     @Autowired
     private DockerClient client;
 
+    @Qualifier("python")
     @Autowired
-    private ContainerCreation creation;
+    private ContainerCreation creationPython;
+
+    @Qualifier("java")
+    @Autowired
+    private ContainerCreation creationJava;
 
     public Object compileCode(String code, String main) {
         return null;
@@ -43,15 +50,6 @@ public class CodeServiceImpl implements CodeService {
 
             } else {
                 file = new File("C:\\Users\\17430\\Desktop\\demo\\code\\demo.py");
-//                file = new File("C:" + File.separator + "var" + File.separator + "codeSpace" + File.separator + "demo.py");
-
-//                if (!file.exists()) {
-//                    try {
-//                        file.createNewFile();
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
                 OutputStream outputStream = null;
                 try {
                     outputStream = new FileOutputStream(file);
@@ -66,7 +64,7 @@ public class CodeServiceImpl implements CodeService {
                     }
                 }
 
-                String id = creation.id();
+                String id = creationPython.id();
 
                 String[] command = {"python3", "demo.py"};
 
@@ -82,7 +80,60 @@ public class CodeServiceImpl implements CodeService {
                 return execOutput;
             }
         } else if ("Java".equals(language)) {
+            if ("Linux".equals(sys)) {
+                file = new File(File.separator + "var" + File.separator + "codeSpace" + File.separator);
 
+            } else {
+                file = new File("C:\\Users\\17430\\Desktop\\demo\\code\\Main.java");
+                OutputStream outputStream = null;
+                try {
+                    outputStream = new FileOutputStream(file);
+                    outputStream.write(code.getBytes());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    try {
+                        outputStream.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                String id = creationJava.id();
+
+                String[] command = {"javac", "Main.java"};
+
+                ExecCreation execCreation = null;
+
+
+                execCreation = client.execCreate(
+                        id, command, DockerClient.ExecCreateParam.attachStdout(),
+                        DockerClient.ExecCreateParam.attachStderr());
+
+                LogStream output = client.execStart(execCreation.id());
+                String execOutput = output.readFully();
+                output.close();
+                System.out.println(execOutput);
+
+                command = new String[]{"java", "Main"};
+
+                execCreation = client.execCreate(
+                        id, command, DockerClient.ExecCreateParam.attachStdout(),
+                        DockerClient.ExecCreateParam.attachStderr());
+                output = client.execStart(execCreation.id());
+
+
+                execOutput = output.readFully();
+
+                System.out.println(execOutput);
+
+                Thread.sleep(5);
+                output.readFully();
+                System.out.println(execOutput);
+                output.close();
+
+                return execOutput;
+            }
         } else {
 
         }

@@ -20,6 +20,7 @@ public class ExamStu {
 
     private Integer examId;
     private String examName;
+    private Double score;
     private LocalDateTime createTime;
 
     private String createPeople;

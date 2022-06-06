@@ -39,4 +39,6 @@ public interface StudentDao {
 
 
     Boolean update(Student student);
+
+    Boolean putScore(@Param("score") double score,@Param("userId") String userId);
 }

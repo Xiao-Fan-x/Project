@@ -54,6 +54,11 @@
             where id = #{id}
 
     </update>
+    <update id="putScore">
+        update `examStu`
+        set score = #{score}
+        where userId = #{userId}
+    </update>
 
     <delete id="delete">
         delete
